@@ -36,6 +36,64 @@ $ solana cluster-version
 $ solana-keygen pubkey /home/solana/my_Wallet.json
 ```
 
+### Token
+> Pre-requisites: The cluster (connected to) must be live & working.
+
+* verify the address tokens being given to via `$ solana address`. If giving to some specific address, then `$ solana airdrop 5 <pubkey>`
+* Airdrop 100 tokens: 
+
+Successful airdrop
+
+```
+❯ solana airdrop 4                                                                                          
+Requesting airdrop of 4 SOL
+
+Signature: 5HuPVcRwQapBBQiRGiGm1kwJJKd8egHLbfkzW8EGdqBGHKX6gwe46aHmbTxm9N9Z9yFnfUANNszKwYCDrQwXgR45
+
+4 SOL
+```
+
+Unsuccessful airdrop
+
+```
+❯ solana airdrop 6
+Requesting airdrop of 6 SOL
+
+Signature: 5ff5XVoYnyHAvGpfMsDrfdD6VBc8dTewDc7ArSa78GYXQmFaVgag5q7PyVX829LLcaRi5T8g5PtL6RJc13wW8yE7
+
+Balance unchanged
+Run `solana confirm -v 5ff5XVoYnyHAvGpfMsDrfdD6VBc8dTewDc7ArSa78GYXQmFaVgag5q7PyVX829LLcaRi5T8g5PtL6RJc13wW8yE7` for more info
+```
+
+### Transaction
+* Get the status of transaction via `$ solana `
+```
+❯ solana confirm -v 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
+RPC URL: https://api.devnet.solana.com
+Default Signer Path: /Users/abhi3700/.config/solana/id.json
+Commitment: confirmed
+
+Transaction executed in slot 97784172:
+  Block Time: 2021-11-30T23:34:38+05:30
+  Recent Blockhash: AkJX1WedZNfEpJeyxJBRZTbsyGbnow2LJHExfdV9SinA
+  Signature 0: 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
+  Account 0: srw- 9B5XszUGdMaxCZ7uSQhPzdks5ZQSmWxrmzCSvtJ6Ns6g (fee payer)
+  Account 1: -r-x MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr
+  Instruction 0
+    Program:   MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr (1)
+    Data: "request too large; req: ◎10, cap: ◎5"
+  Status: Ok
+    Fee: ◎0.000005
+    Account 0 balance: ◎155772.641593511 -> ◎155772.641588511
+    Account 1 balance: ◎0.52149888
+  Log Messages:
+    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr invoke [1]
+    Program log: Memo (len 40): "request too large; req: ◎10, cap: ◎5"
+    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr consumed 33081 of 200000 compute units
+    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr success
+
+Finalized
+```
 
 ### Account
 * View account details via `$ solana account <enter-address>`

@@ -32,3 +32,8 @@ This is similar to Hardhat (for Solidity contracts)
 
 ## Getting Started
 
+## Troubleshoot
+### 1. Error: Balance unchanged
+* _Cause_: This is because of exceeding 5 tokens as airdrop.
+* _Solution_: try <=5 tokens as airdrop `$ solana airdrop 5`
+
