@@ -65,6 +65,11 @@ parade there water toddler differ flat candy panel maximum crystal express slow
 ```
 ❯ solana-keygen new -o target/deploy/crunchy_vs_smooth-keypair.json --force
 ```
+* Get path of the pubkey or keypair:
+```
+❯ solana config get keypair                                                                                                                                                        ⏎
+Key Path: /Users/abhi3700/.config/solana/id.json
+```
 
 ### Token
 > Pre-requisites: The cluster (connected to) must be live & working.
