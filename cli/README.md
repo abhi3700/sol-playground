@@ -29,11 +29,32 @@ $ solana cluster-version
 ```
 
 ### Wallet
-* Generate a new key pair for a contract via `$ solana-keygen new -o <path-to-idl-file-from-root>` e.g `$ solana-keygen new -o <target/deploy/crunchy_vs_smooth-keypair.json>`
+* Generate a new key pair for a contract via `$ solana-keygen new -o <path-to-idl-file-from-root>` e.g `$ solana-keygen new <target/deploy/crunchy_vs_smooth-keypair.json>`
 * View your current local wallet address via `$ solana address`
 * `$ solana-keygen pubkey <KEYPAIR>`: display wallet's address. It depends on the wallet type.
 ```console
 $ solana-keygen pubkey /home/solana/my_Wallet.json
+```
+* Generate a new key pair. `--force` is used if already a pubkey exist. And then view the new address via `$ solana address`
+```
+❯ solana-keygen new --force                                                                                                                                                        ⏎
+Generating a new keypair
+
+For added security, enter a BIP39 passphrase
+
+NOTE! This passphrase improves security of the recovery seed phrase NOT the
+keypair file itself, which is stored as insecure plain text
+
+BIP39 Passphrase (empty for none): 
+Enter same passphrase again: 
+
+Wrote new keypair to /Users/abhi3700/.config/solana/id.json
+===============================================================================
+pubkey: 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
+===============================================================================
+Save this seed phrase and your BIP39 passphrase to recover your new keypair:
+parade there water toddler differ flat candy panel maximum crystal express slow
+===============================================================================
 ```
 
 ### Token
@@ -45,12 +66,12 @@ $ solana-keygen pubkey /home/solana/my_Wallet.json
 Successful airdrop
 
 ```
-❯ solana airdrop 4                                                                                          
-Requesting airdrop of 4 SOL
+❯ solana airdrop 5
+Requesting airdrop of 5 SOL
 
-Signature: 5HuPVcRwQapBBQiRGiGm1kwJJKd8egHLbfkzW8EGdqBGHKX6gwe46aHmbTxm9N9Z9yFnfUANNszKwYCDrQwXgR45
+Signature: 5F5uBXZ8W6AQACudCkALgi2bqXAhE6HF9RrrUt1Fe5ieqzJeYjwnjV9xhTXz8tLy5NfSCb3L76Wv9X6wuoNL7pHA
 
-4 SOL
+9 SOL
 ```
 
 Unsuccessful airdrop
