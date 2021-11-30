@@ -60,10 +60,33 @@ crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 ## Deploy
 * To __devnet__: Get the output file location from `$ anchor build`
 ```
-❯ solana program deploy /Users/abhi3700/F/coding/github_repos/crunchy-vs-smooth/target/deploy/crunchy_vs_smooth.so
+// M-1: using solana
+❯ solana program deploy target/deploy/crunchy_vs_smooth.so
 Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
+
+// M-2: using anchor
+❯ anchor deploy --provider.cluster devnet                                                                                                                                          ⏎
+Deploying workspace: https://api.devnet.solana.com
+Upgrade authority: /Users/abhi3700/.config/solana/id.json
+Deploying program "crunchy-vs-smooth"...
+Program path: /Users/abhi3700/F/coding/github_repos/sol_contracts_crunchyvssmooth/target/deploy/crunchy_vs_smooth.so...
+Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
+
+Deploy success
 ```
+
+> NOTE: `$ anchor deploy` is for localnet
 
 > NOTE: the wallet account must have token balance for deployment. If not created 
 
+## Upgrade
+```
+// M-1: using solana
+❯ solana program deploy target/deploy/crunchy_vs_smooth.so --program-id G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
+Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
+
+// M-2: using anchor
+❯ anchor upgrade target/deploy/counter.so --provider.cluster devnet --program-id G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx                                                      ⏎
+Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
+```
 

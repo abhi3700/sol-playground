@@ -147,6 +147,26 @@ $ sudo apt-get update
 $ sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang make
 ```
 
+### Deploy
+* To new program-id
+```
+// M-1
+$ anchor deploy --provider.cluster devnet
+
+// M-2
+$ solana program deploy target/deploy/counter.so
+```
+* Upgrade code to a program-id
+```
+// M-1
+$ solana program deploy target/deploy/counter.so --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
+
+// M-2
+$ anchor upgrade target/deploy/counter.so --provider.cluster devnet --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
+```
+
+> `$ anchor deploy` for localnet
+
 ### Help
 * `$ solana --help`: help for `solana`
 * `$ solana <COMMAND> --help`: help for `solana` command(s)

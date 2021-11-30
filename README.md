@@ -43,4 +43,4 @@ This is similar to Hardhat (for Solidity contracts)
 ## References
 * [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
 * [Learning How to Build on Solana](https://www.brianfriel.xyz/learning-how-to-build-on-solana/)
-* []
+* [ok so what the fuck is the deal with solana anyway](https://2501babe.github.io/posts/solana101.html)
