@@ -38,13 +38,14 @@ The program address will default to this keypair (override with --program-id):
 		+ M-2: `$ solana-keygen pubkey target/deploy/crunchy_vs_smooth-keypair.json`
 		
 * Replace the `program-id` in 2 places:
-	- `./programs/<project-name>/src/lib.rs`
+
+#### 1. `./programs/<project-name>/src/lib.rs`
 
 ```
 declare_id!("EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS");
 ```
 
-	- `./Anchor.toml`
+#### 2. `./Anchor.toml`
 
 ```
 [programs.localnet]
@@ -54,6 +55,8 @@ crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 ```
 
+## Test
+
 ## Deploy
 * To __devnet__: Get the output file location from `$ anchor build`
 ```
@@ -62,3 +65,5 @@ Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
 ```
 
 > NOTE: the wallet account must have token balance for deployment. If not created 
+
+
