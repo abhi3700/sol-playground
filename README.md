@@ -4,6 +4,24 @@ A playground for writing, compiling, testing smart contracts on Solana chain(s):
 ## Installation
 > The following is for Mac OS.
 
+### `rustc`, `cargo`, `rustfmt`
+Install `rustc`, `cargo`, `rustfmt`
+```
+$ curl https://sh.rustup.rs -sSf | sh`
+$ source $HOME/.cargo/env
+$ rustup component add rustfmt 
+```
+
+`cargo`: Rust package manager
+`rustc`: Rust compiler
+`rustup`: Rust toolchain installer
+
+For linux,
+```console
+$ sudo apt-get update
+$ sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang make
+```
+
 ### Solana
 This is for compiling solana contracts
 

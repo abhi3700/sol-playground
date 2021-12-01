@@ -132,6 +132,30 @@ Finalized
 
 ### Account
 * View account details via `$ solana account <enter-address>`
+* Get details of an account
+```
+❯ solana account 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
+
+Public Key: 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
+Balance: 2.69073484 SOL
+Owner: 11111111111111111111111111111111
+Executable: false
+Rent Epoch: 226
+```
+* Get details of a program id/account
+```
+❯ solana account EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
+
+Public Key: EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
+Balance: 0.00114144 SOL
+Owner: BPFLoaderUpgradeab1e11111111111111111111111
+Executable: true
+Rent Epoch: 226
+Length: 36 (0x24) bytes
+0000:   02 00 00 00  d2 e5 35 b6  f2 c0 64 a5  96 69 5b 4a   ......5...d..i[J
+0010:   64 ef e7 db  d3 c9 d1 3c  be 52 1a b6  28 b5 d1 dc   d......<.R..(...
+0020:   a3 d3 27 06                                          ..'.
+```
 
 
 ### Compile Programs/Contracts
