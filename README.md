@@ -165,7 +165,7 @@ export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
 // activate command
 $ source ~/.zprofile
 ```
-	1. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/`. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+	1. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
 ```
 ❯ solana-test-validator                                                       ⏎
 Ledger location: test-ledger
