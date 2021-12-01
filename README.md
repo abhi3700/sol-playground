@@ -5,21 +5,53 @@ A playground for writing, compiling, testing smart contracts on Solana chain(s):
 > The following is for Mac OS.
 
 ### `rustc`, `cargo`, `rustfmt`
-Install `rustc`, `cargo`, `rustfmt`
+* Install Rust i.e. `rustc`, `cargo`, `rustfmt`
+```console
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+This will download and install the official compiler for the Rust
+programming language, and its package manager, Cargo.
+
+Rustup metadata and toolchains will be installed into the Rustup
+home directory, located at:
+
+  /Users/abhi3700/.rustup
+
+This can be modified with the RUSTUP_HOME environment variable.
+
+The Cargo home directory located at:
+
+  /Users/abhi3700/.cargo
+
+This can be modified with the CARGO_HOME environment variable.
+
+The cargo, rustc, rustup and other commands will be added to
+Cargo's bin directory, located at:
+
+  /Users/abhi3700/.cargo/bin
+
+This path will then be added to your PATH environment variable by
+modifying the profile files located at:
+
+  /Users/abhi3700/.profile
+  /Users/abhi3700/.zshenv
+
+You can uninstall at any time with rustup self uninstall and
+these changes will be reverted.
 ```
-$ curl https://sh.rustup.rs -sSf | sh`
-$ source $HOME/.cargo/env
-$ rustup component add rustfmt 
+
+```console
+❯ rustup component add rustfmt                                                ⏎
+info: component 'rustfmt' for target 'aarch64-apple-darwin' is up to date
 ```
 
 `cargo`: Rust package manager
 `rustc`: Rust compiler
 `rustup`: Rust toolchain installer
 
-For linux,
-```console
-$ sudo apt-get update
-$ sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang make
+* Uninstall Rust i.e. `rustc`, `cargo`, `rustfmt`
+```
+$ rustup self uninstall
 ```
 
 ### Solana
@@ -30,6 +62,9 @@ This is for compiling solana contracts
 * Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.8.5/install)"`
 * Check `$ solana --version`
 * Update `$ solana-install update`
+* Uninstall `$ rm -rf /Users/abhi3700/.local/share/solana/`
+
+> NOTE: `solana-test-validator` might have an issue related to M1 compatibility. Please follow Troubleshooting guide below for Error-3.
 
 ### NodesJS
 This is for writing unit tests using Javascript or Typescript.
@@ -57,6 +92,93 @@ This is similar to Hardhat (for Solidity contracts)
 ### 2. Error: Account 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6 has insufficient funds for spend (1.21953816 SOL) + fee (0.000885 SOL)
 * _Cause_: This is because of insufficient fund in the program deployer account.
 * _Solution_:Airdrop some tokens (a min. of `1.22042316 SOL`) `$ solana airdrop 5 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6` or `$ solana airdrop 5`
+
+### 3. Error: [1]    19521 illegal hardware instruction  solana-test-validator
+* _Cause_: This happens on Mac M1 processor
+* _Solution_: Uninstall Solana, Rust & then install from scratch using the following steps shown [here](https://dev.to/nickgarfield/how-to-install-solana-dev-tools-on-an-m1-mac-kfn)
+	1. Make sure that "Open using Rosetta" is disabled in the terminal
+		- Open Finder & search for "Terminal"
+		- Right click on "Terminal" App & click "Get info"
+		- Ensure that the "Open using Rosetta" option is diabled.
+	1. Uninstall Solana: `$ rm -rf /Users/abhi3700/.local/share/solana/`
+	1. Uninstall Rust: `$ rustup self uninstall`
+	1. Setup Rosetta: `$ /usr/sbin/softwareupdate --install-rosetta --agree-to-license`
+		- Now, we will create duplicate copy of "Terminal" App (search in finder)
+		- Name it as "Terminal Rosetta"
+		- Make sure the "Open using Rosetta" option is enabled.
+	1. Now, use "Terminal Rosetta" from hereon. [OPTIONAL] Make the background color to something else by clicking <kbd>cmd+i</kbd> on opened terminal to make it look different.
+	1. Install Rust, Cargo: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+	1. Install Homebrew using the x86 instruction set. Note the prefix used `arch -x86_64`: `$ arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+	1. Also install OpenSSL in x86 instruction set, but get error like this: 
+```
+// install openssl inside intel processor
+❯ arch -x86_64 brew install openssl@1.1
+Error: Cannot install under Rosetta 2 in ARM default prefix (/opt/homebrew)!
+To rerun under ARM use:
+    arch -arm64 brew install ...
+To install under x86_64, install Homebrew into /usr/local.
+```
+	Then tried doing under ARM and it was success.
+	```
+	$ arch -arm64 brew install openssl@1.1
+	```
+
+	1. Create a new file via `$ touch ~/.cargo/config` and copy paste this:
+```
+[target.x86_64-apple-darwin]
+rustflags = [
+  "-C", "link-arg=-undefined",
+  "-C", "link-arg=dynamic_lookup",
+]
+
+[target.aarch64-apple-darwin]
+rustflags = [
+  "-C", "link-arg=-undefined",
+  "-C", "link-arg=dynamic_lookup",
+]
+```
+	1. Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
+		- first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
+		- Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
+		- Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
+		- More to the folder: `$ cd solana-1.8.5`
+	1. Build
+```
+$ cargo build
+```
+	1. Install coreutils
+```	
+❯ arch -arm64 brew install coreutils
+```
+	1. Install script to generate binaries into `./bin` folder.
+```
+❯ ./scripts/cargo-install-all.sh .
+```
+	1. Add the binaries folder into the PATH.
+```
+// open .zprofile in ST editor
+$ subl ~/.zprofile
+
+// Add this line to EOL
+export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
+
+// activate command
+$ source ~/.zprofile
+```
+	1. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/`. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+```
+❯ solana-test-validator                                                       ⏎
+Ledger location: test-ledger
+Log: test-ledger/validator.log
+Identity: 3RvvwAbhmFDeF8n9SgMKKTyphDev3s9Gx6mefR65o19N
+Genesis Hash: DrFFgvyNjJXgfRBgPDcTgQ7WmyFE2BkX1aRK5s8twrod
+Version: 1.8.5
+Shred Version: 62237
+Gossip Address: 127.0.0.1:1024
+TPU Address: 127.0.0.1:1027
+JSON RPC URL: http://127.0.0.1:8899
+⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
+```
 
 ## References
 * [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
