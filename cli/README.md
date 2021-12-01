@@ -159,21 +159,8 @@ Length: 36 (0x24) bytes
 
 
 ### Compile Programs/Contracts
-Install `rustc`, `cargo`, `rustfmt` (without Anchor). [Install with Anchor](../README.md#installation)
 ```
-$ curl https://sh.rustup.rs -sSf | sh`
-$ source $HOME/.cargo/env
-$ rustup component add rustfmt 
-```
-
-`cargo`: Rust package manager
-`rustc`: Rust compiler
-`rustup`: Rust toolchain installer
-
-For linux,
-```console
-$ sudo apt-get update
-$ sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang make
+$ anchor build
 ```
 
 ### Deploy
