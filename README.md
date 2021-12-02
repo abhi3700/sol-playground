@@ -59,6 +59,8 @@ This is for compiling solana contracts
 
 > NOTE: Install the latest version of Solana CLI either by using `stable` or `version_no.` [source](https://docs.solana.com/cli/install-solana-cli-tools)
 
+> Unless, Solana officially solves the `solana-test-validator` issue for M1 processors, refer Error-3 in "Troubleshooting" header below for installation from source.
+
 * Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.8.5/install)"`
 * Check `$ solana --version`
 * Update `$ solana-install update`
@@ -179,7 +181,7 @@ TPU Address: 127.0.0.1:1027
 JSON RPC URL: http://127.0.0.1:8899
 ⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
 ```
-	1. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow Error-4
+	1. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
 
 ### 4. Error: BPF SDK path does not exist: /Users/abhi3700/.cargo/bin/sdk/bpf: No such file or directory (os error 2)
 * _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
