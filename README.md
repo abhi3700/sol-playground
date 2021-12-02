@@ -2,7 +2,7 @@
 A playground for writing, compiling, testing smart contracts on Solana chain(s): Mainnet, Testnet, Devnet.
 
 ## Installation
-> The following is for Mac OS.
+> The following is for Mac OS M1.
 
 ### `rustc`, `cargo`, `rustfmt`
 * Install Rust i.e. `rustc`, `cargo`, `rustfmt`
@@ -179,6 +179,11 @@ TPU Address: 127.0.0.1:1027
 JSON RPC URL: http://127.0.0.1:8899
 ⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
 ```
+	1. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow Error-4
+
+### 4. Error: BPF SDK path does not exist: /Users/abhi3700/.cargo/bin/sdk/bpf: No such file or directory (os error 2)
+* _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
+* _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
 ## References
 * [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
