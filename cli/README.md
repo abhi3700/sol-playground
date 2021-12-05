@@ -5,7 +5,8 @@ This shows the CLI commands for setting solana node (deploy) & running the solan
 * [Installation](../README.md#installation)
 
 ## Commands
-### Cluster (Node)
+### Cluster
+* Cluster: networks like mainnet, devnet, testnet, localnet.
 * Get config details of the cluster (connected to) via `$ solana config get`
 ```
 Config File: /Users/abhi3700/.config/solana/cli/config.yml
@@ -27,6 +28,11 @@ Commitment: confirmed
 $ solana --version
 $ solana cluster-version
 ```
+
+> If getting the cluster's solana version, then run the localnet via `$ solana-test-validator` in one terminal & run `$ solana cluster-version` in another terminal.
+
+* match with the `genesis-hash` of the network by running `$ solana genesis-hash`
+
 
 ### Wallet
 * Generate a new key pair for a program/contract
