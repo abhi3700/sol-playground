@@ -35,46 +35,58 @@ $ solana cluster-version
 
 
 ### Wallet
-* Generate a new key pair for a program/contract
+#### Account
+* Generate a new keypair (with a default dir: `~/.config/solana/id.json`)
 ```
-$ solana-keygen new -o <path-to-idl-file-from-root>
+// Use -f or --force
+$ solana-keygen new -f
+```
+* Generate a new keypair with a custom location
+```
+$ solana-keygen new -o ~/.config/solana/id2.json
+```
+* Replace a new keypair with a custom location
+```
+$ solana-keygen new -o ~/.config/solana/id2.json -f
+```
+* View your default address. Here, the default path is set as `/Users/abhi3700/.config/solana/id.json`.
+```
+// M-1
+$ solana address
+
+// M-2
+$ solana-keygen pubkey
+```
+* View account address from a custom wallet (stored other than default dir):
+```
+// M-1
+$ solana address -k /Users/abhi3700/.config/solana/id2.json
+
+// M-2
+$ solana-keygen pubkey /Users/abhi3700/.config/solana/id2.json
+```
+
+#### Program
+* Generate a new keypair for a program/contract
+```
+// path to idl file is either relative (w.r.t project root) or absolute
+$ solana-keygen new -o <path-to-idl-file>
 
 // e.g `$ solana-keygen new <target/deploy/crunchy_vs_smooth-keypair.json>`
 ``` 
-* View your current active local wallet address via `$ solana address`
-* `$ solana-keygen pubkey <KEYPAIR>`: display wallet's address. It depends on the wallet type.
-```console
-$ solana-keygen pubkey /home/solana/my_Wallet.json
+* Generate a new program id: `--force` or `-f` is used if already a program-id exist.
 ```
-* Generate a new key pair for account. `--force` is used if already a pubkey exist. And then view the new address via `$ solana address`
+❯ solana-keygen new -o target/deploy/crunchy_vs_smooth-keypair.json -f
 ```
-❯ solana-keygen new --force                                                                                                                                                        ⏎
-Generating a new keypair
-
-For added security, enter a BIP39 passphrase
-
-NOTE! This passphrase improves security of the recovery seed phrase NOT the
-keypair file itself, which is stored as insecure plain text
-
-BIP39 Passphrase (empty for none): 
-Enter same passphrase again: 
-
-Wrote new keypair to /Users/abhi3700/.config/solana/id.json
-===============================================================================
-pubkey: 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
-===============================================================================
-Save this seed phrase and your BIP39 passphrase to recover your new keypair:
-parade there water toddler differ flat candy panel maximum crystal express slow
-===============================================================================
-```
-* Generate a new program id: `--force` is used if already a program-id exist.
-```
-❯ solana-keygen new -o target/deploy/crunchy_vs_smooth-keypair.json --force
-```
-* Get path of the pubkey or keypair:
+* Get default path of the pubkey or keypair:
 ```
 ❯ solana config get keypair                                                                                                                                                        ⏎
 Key Path: /Users/abhi3700/.config/solana/id.json
+```
+* View the default file storing the default private key. It looks like a serialized array.
+```
+❯ cat ~/.config/solana/id.json
+[247,55,52,55,46,196,63,222,196,198,131,23,185,13,36,203,100,55,104,220,123,197,84,126,217,30,202,201,214,170,31,170,53,38,146,136,111,65,77,66,155,94,213,252,160,179,155,204,177,166,243,18,23,204,252,208,234,227,189,236,212,80,111,199]
 ```
 
 ### Token
