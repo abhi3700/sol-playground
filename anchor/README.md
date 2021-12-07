@@ -60,10 +60,22 @@ crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 ## Deploy
 * To __devnet__: Get the output file location from `$ anchor build`
 ```
-// M-1: using solana
+// M-1.1: using solana
+// This works, if in `~/.config/solana/cli/config.yml` directory, it is connected to the same network as we want to deploy on. Otherwise, use M-1.2
 ❯ solana program deploy target/deploy/crunchy_vs_smooth.so
+
+OR
+
+// M-1.2: using solana with customization
+// This is used when deploying with a specific address (having some SOL already).
+// Then, need to provide the file directory containing private key.
+// Very useful when deploying on mainnet using an account which already owns valuable SOL tokens (for transaction fees).
+❯ solana program -k <~/solanawallet.json> deploy target/deploy/crunchy_vs_smooth.so -u https://api.devnet.solana.com
+
+// Output
 Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
 
+//*****************************************************************************************************************
 // M-2: using anchor
 ❯ anchor deploy --provider.cluster devnet                                                                                                                                          ⏎
 Deploying workspace: https://api.devnet.solana.com

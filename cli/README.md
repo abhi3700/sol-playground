@@ -65,12 +65,11 @@ $ solana address -k /Users/abhi3700/.config/solana/id2.json
 // M-2
 $ solana-keygen pubkey /Users/abhi3700/.config/solana/id2.json
 ```
-* View private key in decoded (base-58) format:
+* View private key in decoded (base-58) format: Refer this [script](../utils/privkey.py)
 ```
 ❯ cat ./solanawallet.json
 [48,231,161,248,233,119,70,246,86,82,71,126,72,190,181,231,195,121,143,71,25,128,161,178,199,187,254,11,146,96,171,3,108,114,29,216,101,19,93,51,118,136,39,169,132,234,242,15,133,109,58,134,180,16,10,78,228,91,33,156,252,70,94,107]
 ```
-* View private key in encoded (base-58) format:
 * Recover a pubkey from secret recovery phrase
 ```
 ❯ solana-keygen recover 'prompt://?key=0/0' -o ./solanawallet.json            ⏎
@@ -82,6 +81,16 @@ Wrote recovered keypair to ./solanawallet.json
 // Then, view the address
 ❯ solana-keygen pubkey ./solanawallet.json
 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc
+```
+* Verify a pubkey. To verify you hold the private key for a given address, use this:
+```
+// Success
+❯ solana-keygen verify 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc ./solanawallet.json 
+Verification for public key: 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc: Success
+
+// Failed
+❯ solana-keygen verify FuG41uzhDe25939PQeMcvUHBAfjstnyEDu46bLmpJ7vW ./solanawallet.json
+Verification for public key: FuG41uzhDe25939PQeMcvUHBAfjstnyEDu46bLmpJ7vW: Failed
 ```
 
 #### Program
