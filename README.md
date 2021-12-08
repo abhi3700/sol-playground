@@ -84,7 +84,21 @@ This is similar to Hardhat (for Solidity contracts)
 
 ## [CLI](./cli)
 
-## Getting Started
+## Getting started
+* [Greeting contract](https://learn.figment.io/tutorials/deploy-solana-program)
+	- About: It's a simple program, all it does is increment a number every time it's called.
+	- Here, fetch the greeting account's `counter` attribute >> increment by 1 >> store it back >> log the stored value
+
+
+## Coding
+### Program
+* the account variable can only be edited if the account's owner public key matches with the `program_id`
+```rs
+if (account.owner == program_id) {
+	//the variable can be edited.
+}
+```
+* to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC). 
 
 ## Troubleshoot
 ### 1. Error: Balance unchanged
