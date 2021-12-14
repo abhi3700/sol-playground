@@ -100,6 +100,12 @@ if (account.owner == program_id) {
 ```
 * to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC). 
 
+### SC Security
+* Owner check
+* Owner signer
+* Tool: `Soteria` [source](https://medium.com/coinmonks/soteria-a-vulnerability-scanner-for-solana-smart-contracts-cc202cf17c99)
+
+
 ## Troubleshoot
 ### 1. Error: Balance unchanged
 * _Cause_: This is because of exceeding 5 tokens as airdrop.
@@ -218,3 +224,8 @@ JSON RPC URL: http://127.0.0.1:8899
 	- [Create a Greeter account](https://learn.figment.io/tutorials/how-to-store-state)
 	- [Get Greetings' count](https://learn.figment.io/tutorials/get-greetings)
 	- [Send Greetings](https://learn.figment.io/tutorials/send-greetings)
+
+### Security
+* [From Ethereum smart contracts to Solana programs: two common security pitfalls and beyond](https://medium.com/coinmonks/from-ethereum-smart-contracts-to-solana-programs-two-common-security-pitfalls-and-beyond-ea5b919ade1c)
+* [Solana Smart Contracts: Common Pitfalls and How to Avoid Them](https://blog.neodyme.io/posts/solana_common_pitfalls)
+* [Soteria — A vulnerability scanner for Solana smart contracts](https://medium.com/coinmonks/soteria-a-vulnerability-scanner-for-solana-smart-contracts-cc202cf17c99)
