@@ -77,7 +77,7 @@ This is for writing unit tests using Javascript or Typescript.
 ### Anchor [Know more](./anchor)
 This is similar to Hardhat (for Solidity contracts)
 
-* Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.18.2 anchor-cli --locked`
+* Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.19.0 anchor-cli --locked`
 * Check `$ anchor --version`
 
 > Troubleshoot: Might be due to version related issue. So, update nodejs, solana to minimum version.
@@ -208,10 +208,13 @@ JSON RPC URL: http://127.0.0.1:8899
 * _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
 ## References
+* [Solana Tutorial | Solana for Developers](https://www.youtube.com/watch?v=qNIhClYDjR8)
+* [Building SmartContracts With #Solana and #Rust](https://www.youtube.com/watch?v=gA7hFdq2h9Q)
 * [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
 * [Learning How to Build on Solana](https://www.brianfriel.xyz/learning-how-to-build-on-solana/)
 * [ok so what the fuck is the deal with solana anyway](https://2501babe.github.io/posts/solana101.html)
 * [Solana Development Tutorial: Key Concepts](https://solongwallet.medium.com/solana-development-tutorial-key-concepts-62b6d9077bb9)
+* [Solana Transactions in Depth](https://medium.com/@asmiller1989/solana-transactions-in-depth-1f7f7fe06ac2)
 * Solana 101:
 	- [Introduction](https://learn.figment.io/tutorials/solana-101)
 	- [Setup the project](https://learn.figment.io/tutorials/setup-the-project)

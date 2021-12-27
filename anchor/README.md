@@ -102,3 +102,41 @@ Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
 Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
 ```
 
+## Concepts
+[Solana vs Anchor](https://github.com/abhi3700/My_Learning_Solana/blob/main/faqs.md#q-why-use-anchor-in-writing-solana-programs)
+
+[Source](https://hashnode.com/post/anchor-framework-simplified-for-new-developers-in-solana-cktyttmwf09h6bps189wxcngd)
+
+* Solana program architecture uses `Entrypoint`, `State`, `Processor`, `Instruction`, `Lib` and `Error` files. So, these are taken care of `Anchor`.
+* Anchor has modules, modules are basically a way of grouping structs, functions, methods etc in a large program to make it more easier to export and reuse.
+* `serialization` & `deserialization`: translate data structure or objects into a format(bytes) that can be stored or transmitted. In other words, serialize/deserialize is to pack/unpack data. E.g. In a Redis DB, in order to store an image, it is encoded & in order to retrieve the image, it is decoded.
+
+> Here, in Solana programs, mostly `accounts`, `structs` are serialized or deserialized.
+
+```rs
+// extract stored data from an account
+let mut data = account.try_borrow_mut_data();
+
+// unpack the data
+let mut unpacked = Message::unpack(&data).expect("Failed to read data");
+
+// modify a param `txt` of unpacked data to `txtFinal` of str type.
+unpacked.txt = txtFinal
+
+// Then, pack the data
+unpacked.pack(&mut data);
+```
+
+The entire snippet can be seen [here](../img/borsh_serialize.png).
+
+## Coding
+* 2 imports to start with: `prelude`, `state`.
+* In anchor, there are no separate files for programs `entrypoint`, `state`, `processor`, `instructions` etc.
+* the `#[program]` attribute initialises the instructions to be passed and should be enclosed in a module (`mod{}`).
+
+```rs
+#[program]
+pub mod hello {
+
+}
+```
