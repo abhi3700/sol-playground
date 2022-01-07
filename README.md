@@ -213,6 +213,7 @@ JSON RPC URL: http://127.0.0.1:8899
 * [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
 * [Solana vs Ethereum account](https://solana.wiki/zh-cn/docs/ethereum-comparison/account/)
 * [Solana internals Part 1: what are the native on-chain programs and why do they matter?](https://medium.com/coinmonks/solana-internals-part-1-what-are-the-native-on-chain-programs-and-why-do-they-matter-61c981483e86)
+* [Get started with Anchor](https://project-serum.github.io/anchor/tutorials/tutorial-0.html)
 * [Solana Tutorial | Solana for Developers](https://www.youtube.com/watch?v=qNIhClYDjR8)
 * [Building SmartContracts With #Solana and #Rust](https://www.youtube.com/watch?v=gA7hFdq2h9Q)
 * [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)

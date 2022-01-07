@@ -30,6 +30,11 @@ To deploy this program:
 The program address will default to this keypair (override with --program-id):
   /Users/abhi3700/F/coding/github_repos/crunchy-vs-smooth/target/deploy/crunchy_vs_smooth-keypair.json
 ```
+* `anchor build` is combination of:
+```
+$ cargo build-bpf
+$ anchor idl parse -f program/src/lib.rs -o target/idl/basic_0.json
+```
 * After this, 
 	- `target/` folder gets generated.
 	- IDL is found at `target/idl/<project-name>.json`, which is similar to ABI in solidity and will be using them in a similar way in our JavaScript tests and frontends to communicate with our Solana program via RPC.
@@ -87,7 +92,7 @@ Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
 Deploy success
 ```
 
-> NOTE: `$ anchor deploy` is for localnet
+> NOTE: `$ anchor deploy` is for localnet. Here, in another terminal tab, start the node via `solana-test-validator`
 
 > NOTE: the wallet account must have token balance for deployment. If not created 
 
