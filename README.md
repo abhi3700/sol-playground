@@ -54,6 +54,8 @@ info: component 'rustfmt' for target 'aarch64-apple-darwin' is up to date
 $ rustup self uninstall
 ```
 
+### [Learn Solana concepts](https://github.com/abhi3700/My_Learning_Solana)
+
 ### Solana
 This is for compiling solana contracts
 
@@ -208,6 +210,9 @@ JSON RPC URL: http://127.0.0.1:8899
 * _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
 ## References
+* [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
+* [Solana vs Ethereum account](https://solana.wiki/zh-cn/docs/ethereum-comparison/account/)
+* [Solana internals Part 1: what are the native on-chain programs and why do they matter?](https://medium.com/coinmonks/solana-internals-part-1-what-are-the-native-on-chain-programs-and-why-do-they-matter-61c981483e86)
 * [Solana Tutorial | Solana for Developers](https://www.youtube.com/watch?v=qNIhClYDjR8)
 * [Building SmartContracts With #Solana and #Rust](https://www.youtube.com/watch?v=gA7hFdq2h9Q)
 * [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
