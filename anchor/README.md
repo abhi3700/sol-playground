@@ -63,6 +63,22 @@ crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 ## Test
 
 ## Deploy
+* 2 ways to add details of network, deployer's wallet during deployment: `cluster` param's value in the `Anchor.toml` file of the repo.
+	
+	- M-1: `$ anchor deploy` as CLI command. The provider's info in `Anchor.toml` file: 
+```
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+```
+
+	- M-2: `$ anchor deploy --provider.cluster devnet --provider.wallet ~/.config/solana/id.json`
+```
+// it's redundant to use the above provider info in `Anchor.toml` file
+```
+
+> If the wallet address' directory is in different place that the default, then parse that which contains faucet.
+
 * To __devnet__: Get the output file location from `$ anchor build`
 ```
 // M-1.1: using solana
@@ -145,3 +161,6 @@ pub mod hello {
 
 }
 ```
+
+## References
+* [List of account constraints](https://docs.rs/anchor-lang/latest/anchor_lang/derive.Accounts.html)
