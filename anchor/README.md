@@ -1,6 +1,8 @@
 # Anchor
 A testing framework for Solana programs
 
+## [Installation](../README.md#anchor)
+
 ## Commands
 * Init a project: `$ anchor init <project-name>` (by default Typescript)
 * Init a project using JS: `$ anchor init <project-name> --javascript`

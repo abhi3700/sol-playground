@@ -49,6 +49,7 @@ info: component 'rustfmt' for target 'aarch64-apple-darwin' is up to date
 `rustc`: Rust compiler
 `rustup`: Rust toolchain installer
 
+* Update: `$ rustup update stable`
 * Uninstall Rust i.e. `rustc`, `cargo`, `rustfmt`
 ```
 $ rustup self uninstall
@@ -76,10 +77,12 @@ This is for writing unit tests using Javascript or Typescript.
 * Install NodeJS
 * Check `$ node --version && npm --version`
 
-### Anchor [Know more](./anchor)
+### Anchor 
+[Know more](./anchor)
+
 This is similar to Hardhat (for Solidity contracts)
 
-* Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.19.0 anchor-cli --locked`
+* Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.18.2 anchor-cli --locked`
 * Check `$ anchor --version`
 
 > Troubleshoot: Might be due to version related issue. So, update nodejs, solana to minimum version.
@@ -161,7 +164,7 @@ rustflags = [
   "-C", "link-arg=dynamic_lookup",
 ]
 ```
-	1. Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
+	1. [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
 		- first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
 		- Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
 		- Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
@@ -174,7 +177,7 @@ $ cargo build
 ```	
 ❯ arch -arm64 brew install coreutils
 ```
-	1. Install script to generate binaries into `./bin` folder.
+	1. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
 ```
 ❯ ./scripts/cargo-install-all.sh .
 ```
@@ -189,6 +192,13 @@ export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
 // activate command
 $ source ~/.zprofile
 ```
+> NOTE: For multiple versions just open `~/.zprofile` file & change the version via commenting the previous version. Also, make sure that the path exist. Hence, it looks like this:
+```
+# export PATH="/Users/abhi3700/solana-1.8.0"/bin:"$PATH"
+# export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
+export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
+```
+
 	1. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
 ```
 ❯ solana-test-validator                                                       ⏎
