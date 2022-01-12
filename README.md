@@ -219,6 +219,24 @@ JSON RPC URL: http://127.0.0.1:8899
 * _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
 * _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
+#### 5. Program deployment error:
+* _Error_:
+```
+Error: Custom: Invalid blockhash
+There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)), stdout: "", stderr: "" }.
+```
+* _Cause_:
+	- It could be due to `solana-cli` conflict.
+	- It could be because the new `program_id` generated into `target/deploy/` is put into the `declare_id`, `Anchor.toml`.
+* _Solution_: Check the 2 things above.
+	- try with `solana-1.8.0`, if not working with `solana-1.9.4`,
+
+```
+solana-cli 1.8.0 (src:4a8ff62a; feat:1813598585)
+anchor-cli 0.20.1
+rustc 1.57.0 (f1edd0429 2021-11-29)
+```
+
 ## References
 * [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
 * [Solana vs Ethereum account](https://solana.wiki/zh-cn/docs/ethereum-comparison/account/)
