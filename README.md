@@ -91,8 +91,8 @@ This is similar to Hardhat (for Solidity contracts)
 
 ## Getting started
 * [Greeting contract](https://learn.figment.io/tutorials/deploy-solana-program)
-	- About: It's a simple program, all it does is increment a number every time it's called.
-	- Here, fetch the greeting account's `counter` attribute >> increment by 1 >> store it back >> log the stored value
+  - About: It's a simple program, all it does is increment a number every time it's called.
+  - Here, fetch the greeting account's `counter` attribute >> increment by 1 >> store it back >> log the stored value
 
 
 ## Coding
@@ -100,7 +100,7 @@ This is similar to Hardhat (for Solidity contracts)
 * the account variable can only be edited if the account's owner public key matches with the `program_id`
 ```rs
 if (account.owner == program_id) {
-	//the variable can be edited.
+  //the variable can be edited.
 }
 ```
 * to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC). 
@@ -123,65 +123,64 @@ if (account.owner == program_id) {
 ### 3. Error: [1]    19521 illegal hardware instruction  solana-test-validator
 * _Cause_: This happens on Mac M1 processor
 * _Solution_: Uninstall Solana, Rust & then install from scratch using the following steps shown [here](https://dev.to/nickgarfield/how-to-install-solana-dev-tools-on-an-m1-mac-kfn)
-	1. Make sure that "Open using Rosetta" is disabled in the terminal
-		- Open Finder & search for "Terminal"
-		- Right click on "Terminal" App & click "Get info"
-		- Ensure that the "Open using Rosetta" option is diabled.
-	1. Uninstall Solana: `$ rm -rf /Users/abhi3700/.local/share/solana/`
-	1. Uninstall Rust: `$ rustup self uninstall`
-	1. Setup Rosetta: `$ /usr/sbin/softwareupdate --install-rosetta --agree-to-license`
-		- Now, we will create duplicate copy of "Terminal" App (search in finder)
-		- Name it as "Terminal Rosetta"
-		- Make sure the "Open using Rosetta" option is enabled.
-	1. Now, use "Terminal Rosetta" from hereon. [OPTIONAL] Make the background color to something else by clicking <kbd>cmd+i</kbd> on opened terminal to make it look different.
-	1. Install Rust, Cargo: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
-	1. Install Homebrew using the x86 instruction set. Note the prefix used `arch -x86_64`: `$ arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
-	1. Also install OpenSSL in x86 instruction set, but get error like this: 
-```
-// install openssl inside intel processor
-❯ arch -x86_64 brew install openssl@1.1
-Error: Cannot install under Rosetta 2 in ARM default prefix (/opt/homebrew)!
-To rerun under ARM use:
+  1. Make sure that "Open using Rosetta" is disabled in the terminal
+     - Open Finder & search for "Terminal"
+     - Right click on "Terminal" App & click "Get info"
+     - Ensure that the "Open using Rosetta" option is diabled.
+  2. Uninstall Solana: `$ rm -rf /Users/abhi3700/.local/share/solana/`
+  3. Uninstall Rust: `$ rustup self uninstall`
+  4. Setup Rosetta: `$ /usr/sbin/softwareupdate --install-rosetta --agree-to-license`
+     - Now, we will create duplicate copy of "Terminal" App (search in finder)
+     - Name it as "Terminal Rosetta"
+     - Make sure the "Open using Rosetta" option is enabled.
+  5. Now, use "Terminal Rosetta" from hereon. [OPTIONAL] Make the background color to something else by clicking <kbd>cmd+i</kbd> on opened terminal to make it look different.
+  6. Install Rust, Cargo: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+  7. Install Homebrew using the x86 instruction set. Note the prefix used `arch -x86_64`: `$ arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+  8. Also install OpenSSL in x86 instruction set, but get error like this: 
+  ```console
+  // install openssl inside intel processor
+  $ arch -x86_64 brew install openssl@1.1
+  Error: Cannot install under Rosetta 2 in ARM default prefix (/opt/homebrew)!
+  To rerun under ARM use:
     arch -arm64 brew install ...
-To install under x86_64, install Homebrew into /usr/local.
-```
-	Then tried doing under ARM and it was success.
-	```
-	$ arch -arm64 brew install openssl@1.1
-	```
+  To install under x86_64, install Homebrew into /usr/local.
+  ```
+  Then tried doing under ARM and it was success.
+  ```console
+  $ arch -arm64 brew install openssl@1.1
+  ```
+  9. Create a new file via `$ touch ~/.cargo/config` and copy paste this:
+  ```
+  [target.x86_64-apple-darwin]
+  rustflags = [
+    "-C", "link-arg=-undefined",
+    "-C", "link-arg=dynamic_lookup",
+  ]
 
-	1. Create a new file via `$ touch ~/.cargo/config` and copy paste this:
-```
-[target.x86_64-apple-darwin]
-rustflags = [
-  "-C", "link-arg=-undefined",
-  "-C", "link-arg=dynamic_lookup",
-]
-
-[target.aarch64-apple-darwin]
-rustflags = [
-  "-C", "link-arg=-undefined",
-  "-C", "link-arg=dynamic_lookup",
-]
-```
-	1. [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
-		- first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
-		- Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
-		- Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
-		- More to the folder: `$ cd solana-1.8.5`
-	1. Build
+  [target.aarch64-apple-darwin]
+  rustflags = [
+    "-C", "link-arg=-undefined",
+    "-C", "link-arg=dynamic_lookup",
+  ]
+  ```
+  10.  [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
+       - first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
+       - Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
+       - Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
+       - More to the folder: `$ cd solana-1.8.5`
+  11.  Build
 ```
 $ cargo build
 ```
-	1. Install coreutils
+  12.  Install coreutils
 ```	
-❯ arch -arm64 brew install coreutils
+$ arch -arm64 brew install coreutils
 ```
-	1. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
+  13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
 ```
-❯ ./scripts/cargo-install-all.sh .
+$ ./scripts/cargo-install-all.sh .
 ```
-	1. Add the binaries folder into the PATH.
+  14. Add the binaries folder into the PATH.
 ```
 // open .zprofile in ST editor
 $ subl ~/.zprofile
@@ -199,7 +198,7 @@ $ source ~/.zprofile
 export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
 ```
 
-	1. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+  15. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
 ```
 ❯ solana-test-validator                                                       ⏎
 Ledger location: test-ledger
@@ -213,23 +212,23 @@ TPU Address: 127.0.0.1:1027
 JSON RPC URL: http://127.0.0.1:8899
 ⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
 ```
-	1. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
+  16. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
 
 ### 4. Error: BPF SDK path does not exist: /Users/abhi3700/.cargo/bin/sdk/bpf: No such file or directory (os error 2)
 * _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
 * _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
-#### 5. Program deployment error:
+### 5. Program deployment error:
 * _Error_:
 ```
 Error: Custom: Invalid blockhash
 There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)), stdout: "", stderr: "" }.
 ```
 * _Cause_:
-	- It could be due to `solana-cli` conflict.
-	- It could be because the new `program_id` generated into `target/deploy/` is put into the `declare_id`, `Anchor.toml`.
+  - It could be due to `solana-cli` conflict.
+  - It could be because the new `program_id` generated into `target/deploy/` is put into the `declare_id`, `Anchor.toml`.
 * _Solution_: Check the 2 things above.
-	- try with `solana-1.8.0`, if not working with `solana-1.9.4`,
+  - try with `solana-1.8.0`, if not working with `solana-1.9.4`,
 
 ```
 solana-cli 1.8.0 (src:4a8ff62a; feat:1813598585)
@@ -251,17 +250,17 @@ rustc 1.57.0 (f1edd0429 2021-11-29)
 * [Solana Development Tutorial: Key Concepts](https://solongwallet.medium.com/solana-development-tutorial-key-concepts-62b6d9077bb9)
 * [Solana Transactions in Depth](https://medium.com/@asmiller1989/solana-transactions-in-depth-1f7f7fe06ac2)
 * Solana 101:
-	- [Introduction](https://learn.figment.io/tutorials/solana-101)
-	- [Setup the project](https://learn.figment.io/tutorials/setup-the-project)
-	- [Connect to the Solana Devnet](https://learn.figment.io/tutorials/connect-to-devnet)
-	- [Create a Keypair](https://learn.figment.io/tutorials/create-solana-keypair)
-	- [Fund the account](https://learn.figment.io/tutorials/fund-solana-account)
-	- [Check the account balance](https://learn.figment.io/tutorials/check-solana-account-balance)
-	- [Transfer SOL tokens](https://learn.figment.io/tutorials/transfer-sol-tokens)
-	- [Deploy a program](https://learn.figment.io/tutorials/deploy-solana-program)
-	- [Create a Greeter account](https://learn.figment.io/tutorials/how-to-store-state)
-	- [Get Greetings' count](https://learn.figment.io/tutorials/get-greetings)
-	- [Send Greetings](https://learn.figment.io/tutorials/send-greetings)
+  - [Introduction](https://learn.figment.io/tutorials/solana-101)
+  - [Setup the project](https://learn.figment.io/tutorials/setup-the-project)
+  - [Connect to the Solana Devnet](https://learn.figment.io/tutorials/connect-to-devnet)
+  - [Create a Keypair](https://learn.figment.io/tutorials/create-solana-keypair)
+  - [Fund the account](https://learn.figment.io/tutorials/fund-solana-account)
+  - [Check the account balance](https://learn.figment.io/tutorials/check-solana-account-balance)
+  - [Transfer SOL tokens](https://learn.figment.io/tutorials/transfer-sol-tokens)
+  - [Deploy a program](https://learn.figment.io/tutorials/deploy-solana-program)
+  - [Create a Greeter account](https://learn.figment.io/tutorials/how-to-store-state)
+  - [Get Greetings' count](https://learn.figment.io/tutorials/get-greetings)
+  - [Send Greetings](https://learn.figment.io/tutorials/send-greetings)
 
 ### Security
 * [From Ethereum smart contracts to Solana programs: two common security pitfalls and beyond](https://medium.com/coinmonks/from-ethereum-smart-contracts-to-solana-programs-two-common-security-pitfalls-and-beyond-ea5b919ade1c)
