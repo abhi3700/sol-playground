@@ -15,7 +15,7 @@ mapping(address => mapping(uint256 => Staking)) userStaking;
 ### A1
 * Implement each `Staking` struct into multiple PDA(s) for different users.
 * In order to calculate PDA address, use this:
-```rust`
+```rs
 seeds = [b"staking", seedkey.as_ref(), user.as_ref(), id.to_string().as_bytes()],
 ```
 where,
@@ -23,7 +23,7 @@ where,
 `seedkey` - is constant for the solana program which is used to create unique address.
 
 * Hence, the final data structure looks like this:
-```rust
+```rs
 #[derive(Accounts)]
 #[instruction(seedkey: Pubkey, user: Pubkey, id: u64)]
 struct userStaking {
