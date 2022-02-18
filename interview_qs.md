@@ -24,9 +24,10 @@ where,
 
 * Hence, the final data structure looks like this:
 ```rs
+// used for the function which is going to use this
 #[derive(Accounts)]
 #[instruction(seedkey: Pubkey, user: Pubkey, id: u64)]
-struct userStaking {
+pub struct userStaking {
 	#[account(
 	    init,
 			seeds = [b"staking", seedkey.as_ref(), user.as_ref(), id.to_string().as_bytes()],
@@ -36,10 +37,13 @@ struct userStaking {
 	pub user_staking: AccountLoader<'a, Staking>,
 }
 
-struct Staking {
-	status: bool,
-	start_timestamp: u32,
-	maturity_timestamp: u32
+// For PDA
+#[account(zero_copy)]
+#[derive(Default)] 
+pub struct Staking {
+	pub status: bool,
+	pub start_timestamp: u32,
+	pub maturity_timestamp: u32
 }
 ```
 
