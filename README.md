@@ -77,7 +77,7 @@ This is for writing unit tests using Javascript or Typescript.
 * Install NodeJS
 * Check `$ node --version && npm --version`
 
-### Anchor 
+### Anchor
 [Know more](./anchor)
 
 This is similar to Hardhat (for Solidity contracts)
@@ -103,7 +103,7 @@ if (account.owner == program_id) {
   //the variable can be edited.
 }
 ```
-* to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC). 
+* to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC).
 
 ### SC Security
 * Owner check
@@ -136,7 +136,7 @@ if (account.owner == program_id) {
   5. Now, use "Terminal Rosetta" from hereon. [OPTIONAL] Make the background color to something else by clicking <kbd>cmd+i</kbd> on opened terminal to make it look different.
   6. Install Rust, Cargo: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
   7. Install Homebrew using the x86 instruction set. Note the prefix used `arch -x86_64`: `$ arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
-  8. Also install OpenSSL in x86 instruction set, but get error like this: 
+  8. Also install OpenSSL in x86 instruction set, but get error like this:
   ```console
   // install openssl inside intel processor
   $ arch -x86_64 brew install openssl@1.1
@@ -172,8 +172,9 @@ if (account.owner == program_id) {
 ```
 $ cargo build
 ```
+  - If you receive an error during cargo build that _cmake_ is not installed you can follow the installation instructions [here](https://cmake.org/install/) and then add the application to your path described [here](https://stackoverflow.com/questions/30668601/installing-cmake-command-line-tools-on-a-mac).
   12.  Install coreutils
-```	
+```
 $ arch -arm64 brew install coreutils
 ```
   13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
