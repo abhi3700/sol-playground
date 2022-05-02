@@ -1,11 +1,15 @@
 # sol-playground
+
 A playground for writing, compiling, testing smart contracts on Solana chain(s): Mainnet, Testnet, Devnet.
 
 ## Installation
+
 > The following is for Mac OS M1.
 
-### `rustc`, `cargo`, `rustfmt`
+### `rustup`, `rustc`, `cargo`, `rustfmt`
+
 * Install Rust i.e. `rustc`, `cargo`, `rustfmt`
+
 ```console
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -50,9 +54,19 @@ info: component 'rustfmt' for target 'aarch64-apple-darwin' is up to date
 `rustup`: Rust toolchain installer
 
 * Update: `$ rustup update stable`
-* Uninstall Rust i.e. `rustc`, `cargo`, `rustfmt`
-```
+* Uninstall Rust i.e. `rustup`, `rustc`, `cargo`, `rustfmt`
+
+```console
 $ rustup self uninstall
+```
+> NOTE: If there is any error related to `linker` with C, follow this:
+
+> You will also need a linker, which is a program that Rust uses to join its compiled outputs into one file. It is likely you already have one. If you get linker errors, you should install a C compiler, which will typically include a linker. A C compiler is also useful because some common Rust packages depend on C code and will need a C compiler.
+
+> On macOS, you can get a C compiler by running:
+
+```console
+xcode-select --install
 ```
 
 ### [Learn Solana concepts](https://github.com/abhi3700/My_Learning_Solana)
