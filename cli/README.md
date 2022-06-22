@@ -1,29 +1,38 @@
 # CLI Commands for Solana
+
 This shows the CLI commands for setting solana node (deploy) & running the solana programs.
 
 ## Prerequisites
-* [Installation](../README.md#installation)
+
+- [Installation](../README.md#installation)
 
 ## Commands
+
 ### Cluster
-* Cluster: networks like mainnet, devnet, testnet, localnet.
-* Get config details of the cluster (connected to) via `$ solana config get`
+
+- Cluster: networks like mainnet, devnet, testnet, localnet.
+- Get config details of the cluster (connected to) via `$ solana config get`
+
 ```
 Config File: /Users/abhi3700/.config/solana/cli/config.yml
-RPC URL: https://api.mainnet-beta.solana.com 
+RPC URL: https://api.mainnet-beta.solana.com
 WebSocket URL: wss://api.mainnet-beta.solana.com/ (computed)
-Keypair Path: /Users/abhi3700/.config/solana/id.json 
-Commitment: confirmed 
+Keypair Path: /Users/abhi3700/.config/solana/id.json
+Commitment: confirmed
 ```
-* Set a URL for a cluster (connected to) via `$ solana config set --url localhost`
+
+- Set a URL for a cluster (connected to) via `$ solana config set --url localhost`
+
 ```
 Config File: /Users/abhi3700/.config/solana/cli/config.yml
-RPC URL: http://localhost:8899 
+RPC URL: http://localhost:8899
 WebSocket URL: ws://localhost:8900/ (computed)
-Keypair Path: /Users/abhi3700/.config/solana/id.json 
-Commitment: confirmed 
+Keypair Path: /Users/abhi3700/.config/solana/id.json
+Commitment: confirmed
 ```
-* Ensure local CLI version >= cluster's version
+
+- Ensure local CLI version >= cluster's version
+
 ```console
 $ solana --version
 $ solana cluster-version
@@ -31,25 +40,33 @@ $ solana cluster-version
 
 > If getting the cluster's solana version, then run the localnet via `$ solana-test-validator` in one terminal & run `$ solana cluster-version` in another terminal.
 
-* match with the `genesis-hash` of the network by running `$ solana genesis-hash`
-
+- match with the `genesis-hash` of the network by running `$ solana genesis-hash`
 
 ### Wallet
+
 #### Account
-* Generate a new keypair (with a default dir: `~/.config/solana/id.json`)
+
+- Generate a new keypair (with a default dir: `~/.config/solana/id.json`)
+
 ```
 // Use -f or --force
 $ solana-keygen new -f
 ```
-* Generate a new keypair with a custom location
+
+- Generate a new keypair with a custom location
+
 ```
 $ solana-keygen new -o ~/.config/solana/id2.json
 ```
-* Replace a new keypair with a custom location
+
+- Replace a new keypair with a custom location
+
 ```
 $ solana-keygen new -o ~/.config/solana/id2.json -f
 ```
-* View your default address. Here, the default path is set as `/Users/abhi3700/.config/solana/id.json`.
+
+- View your default address. Here, the default path is set as `/Users/abhi3700/.config/solana/id.json`.
+
 ```
 // M-1
 $ solana address
@@ -57,7 +74,9 @@ $ solana address
 // M-2
 $ solana-keygen pubkey
 ```
-* View account address from a custom wallet (stored other than default dir):
+
+- View account address from a custom wallet (stored other than default dir):
+
 ```
 // M-1
 $ solana address -k /Users/abhi3700/.config/solana/id2.json
@@ -65,16 +84,20 @@ $ solana address -k /Users/abhi3700/.config/solana/id2.json
 // M-2
 $ solana-keygen pubkey /Users/abhi3700/.config/solana/id2.json
 ```
-* View private key in decoded (base-58) format: Refer this [script](../utils/privkey.py)
+
+- View private key in decoded (base-58) format: Refer this [script](../utils/privkey.py)
+
 ```
 ❯ cat ./solanawallet.json
 [48,231,161,248,233,119,70,246,86,82,71,126,72,190,181,231,195,121,143,71,25,128,161,178,199,187,254,11,146,96,171,3,108,114,29,216,101,19,93,51,118,136,39,169,132,234,242,15,133,109,58,134,180,16,10,78,228,91,33,156,252,70,94,107]
 ```
-* Recover a pubkey from secret recovery phrase
+
+- Recover a pubkey from secret recovery phrase
+
 ```
 ❯ solana-keygen recover 'prompt://?key=0/0' -o ./solanawallet.json            ⏎
-[recover] seed phrase: 
-[recover] If this seed phrase has an associated passphrase, enter it now. Otherwise, press ENTER to continue: 
+[recover] seed phrase:
+[recover] If this seed phrase has an associated passphrase, enter it now. Otherwise, press ENTER to continue:
 Recovered pubkey `8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc`. Continue? (y/n): y
 Wrote recovered keypair to ./solanawallet.json
 
@@ -82,10 +105,12 @@ Wrote recovered keypair to ./solanawallet.json
 ❯ solana-keygen pubkey ./solanawallet.json
 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc
 ```
-* Verify a pubkey. To verify you hold the private key for a given address, use this:
+
+- Verify a pubkey. To verify you hold the private key for a given address, use this:
+
 ```
 // Success
-❯ solana-keygen verify 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc ./solanawallet.json 
+❯ solana-keygen verify 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc ./solanawallet.json
 Verification for public key: 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc: Success
 
 // Failed
@@ -94,30 +119,40 @@ Verification for public key: FuG41uzhDe25939PQeMcvUHBAfjstnyEDu46bLmpJ7vW: Faile
 ```
 
 #### Program
-* Generate a new keypair for a program/contract
+
+- Generate a new keypair for a program/contract
+
 ```
 // path to idl file is either relative (w.r.t project root) or absolute
 $ solana-keygen new -o <path-to-idl-file>
 
 // e.g `$ solana-keygen new <target/deploy/crunchy_vs_smooth-keypair.json>`
-``` 
-* Generate a new program id: `--force` or `-f` is used if already a program-id exist.
+```
+
+- Generate a new program id: `--force` or `-f` is used if already a program-id exist.
+
 ```
 ❯ solana-keygen new -o target/deploy/crunchy_vs_smooth-keypair.json -f
 ```
-* Get default path of the pubkey or keypair:
+
+- Get default path of the pubkey or keypair:
+
 ```
 ❯ solana config get keypair                                                                                                                                                        ⏎
 Key Path: /Users/abhi3700/.config/solana/id.json
 ```
-* View the default file storing the default private key. It looks like a serialized array.
+
+- View the default file storing the default private key. It looks like a serialized array.
+
 ```
 ❯ cat ~/.config/solana/id.json
 [247,55,52,55,46,196,63,222,196,198,131,23,185,13,36,203,100,55,104,220,123,197,84,126,217,30,202,201,214,170,31,170,53,38,146,136,111,65,77,66,155,94,213,252,160,179,155,204,177,166,243,18,23,204,252,208,234,227,189,236,212,80,111,199]
 ```
 
 ### Transaction
-* Get the status of transaction via `$ solana `
+
+- Get the status of transaction via `$ solana `
+
 ```
 ❯ solana confirm -v 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
 RPC URL: https://api.devnet.solana.com
@@ -147,8 +182,10 @@ Finalized
 ```
 
 ### Account
-* View account details via `$ solana account <enter-address>`
-* Get details of an account
+
+- View account details via `$ solana account <enter-address>`
+- Get details of an account
+
 ```
 ❯ solana account 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
 
@@ -158,7 +195,9 @@ Owner: 11111111111111111111111111111111
 Executable: false
 Rent Epoch: 226
 ```
-* Get details of a program id/account
+
+- Get details of a program id/account
+
 ```
 ❯ solana account EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
 
@@ -174,7 +213,9 @@ Length: 36 (0x24) bytes
 ```
 
 ### Transaction
-* verify a transaction whether confirmed or not.
+
+- verify a transaction whether confirmed or not.
+
 ```
 ❯ solana confirm -v 5Cf22pzPWB2dEb98C8mD9NkYpVeNXdYcHvxK1t5G2xUcQHLDDWce9KRBVv4BY14tBmRsP9XUJkV23iWgsKfRM7BF
 RPC URL: https://api.devnet.solana.com
@@ -204,12 +245,15 @@ Finalized
 ```
 
 ### Compile Programs/Contracts
+
 ```
 $ anchor build
 ```
 
 ### Deploy
-* To new program-id
+
+- To new program-id
+
 ```
 // M-1
 $ anchor deploy --provider.cluster devnet
@@ -217,7 +261,9 @@ $ anchor deploy --provider.cluster devnet
 // M-2
 $ solana program deploy target/deploy/counter.so
 ```
-* Upgrade code to a program-id
+
+- Upgrade code to a program-id
+
 ```
 // M-1
 $ solana program deploy target/deploy/counter.so --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
@@ -229,11 +275,13 @@ $ anchor upgrade target/deploy/counter.so --provider.cluster devnet --program-id
 > `$ anchor deploy` for localnet
 
 ### Token
+
 > Pre-requisites: The cluster (connected to) must be live & working.
 
 #### SOL
-* verify the address tokens being given to via `$ solana address`. If giving to some specific address, then `$ solana airdrop 5 <pubkey>`
-* Airdrop 100 tokens to address imported from this default keypair: `~/.config/solana/id.json`: 
+
+- verify the address tokens being given to via `$ solana address`. If giving to some specific address, then `$ solana airdrop 5 <pubkey>`
+- Airdrop 100 tokens to address imported from this default keypair: `~/.config/solana/id.json`:
 
 Successful airdrop
 
@@ -257,7 +305,9 @@ Signature: 5ff5XVoYnyHAvGpfMsDrfdD6VBc8dTewDc7ArSa78GYXQmFaVgag5q7PyVX829LLcaRi5
 Balance unchanged
 Run `solana confirm -v 5ff5XVoYnyHAvGpfMsDrfdD6VBc8dTewDc7ArSa78GYXQmFaVgag5q7PyVX829LLcaRi5T8g5PtL6RJc13wW8yE7` for more info
 ```
-* Airdrop SOL to an address
+
+- Airdrop SOL to an address
+
 ```
 ❯ solana airdrop 5 FuG41uzhDe25939PQeMcvUHBAfjstnyEDu46bLmpJ7vW                                                                                                                    ⏎
 Requesting airdrop of 5 SOL
@@ -266,7 +316,9 @@ Signature: 2Lrey9dnX61CLR13aVtyogySWxPqv9uM9qwbwjMZZGsJ51bxCRZh1JJjnBbJ2WqN91NGW
 
 5 SOL
 ```
-* transfer SOL to a new account. Here, use `--allow-unfunded-recipient` flag for a new account with `0 SOL` as balance.
+
+- transfer SOL to a new account. Here, use `--allow-unfunded-recipient` flag for a new account with `0 SOL` as balance.
+
 ```
 ❯ solana balance 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG                                                                                                                      ⏎
 0 SOL
@@ -275,10 +327,12 @@ Signature: 2Lrey9dnX61CLR13aVtyogySWxPqv9uM9qwbwjMZZGsJ51bxCRZh1JJjnBbJ2WqN91NGW
 
 Signature: 4LcZtMdZZrHR2LEwpnfEUksf2PkHyiehGSnbiPj4oMpBUixbG8swv6W18cMSZxRuVy6MzsJ2wU7XpSi27KvmkftD
 
-❯ solana balance 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG                                                           
+❯ solana balance 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG
 10 SOL
 ```
-* transfer SOL with fee paid by some other account
+
+- transfer SOL with fee paid by some other account
+
 ```
 // Here, amount deducted from 1st KEYPAIR (file containing the private key) and the 2nd KEYPAIR gives the transaction fee.
 ❯ solana transfer -k ~/.config/solana/id.json 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG 10 --fee-payer ./localwallet.json                                                       ⏎
@@ -287,10 +341,12 @@ Signature: 13h2crDKamLYwk1ZhvAPx4cnzxrreBB7xH6DtkdTi7ERSWe3LWdNFh8H3NAQ335BRYG5i
 ```
 
 #### New token
-* Here, there is no token contract/program deployment. Each new token contract is to be created on top of system token contract/program.
-* Each token has a unique identifier i.e. token address which has a mint account which is to be created via `$ spl-token create-account <token-address>`
 
-* Create new token
+- Here, there is no token contract/program deployment. Each new token contract is to be created on top of system token contract/program.
+- Each token has a unique identifier i.e. token address which has a mint account which is to be created via `$ spl-token create-account <token-address>`
+
+- Create new token
+
 ```
 ❯ spl-token create-token                                                                                                                                                           ⏎
 Creating token GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg
@@ -300,12 +356,15 @@ Signature: 4aavRWA8uvYGNqBFQ8whLn6SU5rq9MZGGMXLqsUYKhTMoyF9uL5LeR3y8L2LFdngHoFQV
 
 Here, the token created has an address: `GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg` with `0` supply.
 
-* View supply of a token
+- View supply of a token
+
 ```
 ❯ spl-token supply GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg                                                                                                                    ⏎
 0
 ```
-* mint token to an account (token holder)
+
+- mint token to an account (token holder)
+
 ```
 // create an token holder account
 ❯ spl-token create-account eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D
@@ -320,7 +379,9 @@ Minting 100 tokens
 
 Signature: 4GpudHGQSfnUSuzdrD8PF2Yir8cg5s1dZpBG6zfV8gXmE3BZRhJkrMNQRCr5d6P8xBK56maRsK8EY4Nn1ah8osKG
 ```
-* Get info of a token account w/o mint authority
+
+- Get info of a token account w/o mint authority
+
 ```
 // create token without mint authority
 ❯ spl-token create-account eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D
@@ -344,7 +405,9 @@ Length: 82 (0x52) bytes
 0040:   00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   ................
 0050:   00 00                                                ..
 ```
-* Get info of a token account w mint authority
+
+- Get info of a token account w mint authority
+
 ```
 // create token with mint authority
 ❯ spl-token create-token --mint-authority ./localwallet.json                                                                                                                       ⏎
@@ -371,16 +434,17 @@ Length: 82 (0x52) bytes
 
 > In both the cases, the token owner is `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA`. The owner is the token program (a program account), which is responsible for creating new tokens, minting tokens, and transferring tokens.
 
-* View all tokens (and its balance) that you own
+- View all tokens (and its balance) that you own
+
 ```
 ❯ spl-token accounts                                                                                                                                                               ⏎
 Token                                         Balance
 ---------------------------------------------------------------
-FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu  0  
+FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu  0
 eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D   100
 ```
 
-
 ### Help
-* `$ solana --help`: help for `solana`
-* `$ solana <COMMAND> --help`: help for `solana` command(s)
+
+- `$ solana --help`: help for `solana`
+- `$ solana <COMMAND> --help`: help for `solana` command(s)

@@ -1,12 +1,15 @@
 # Anchor
+
 A testing framework for Solana programs
 
 ## [Installation](../README.md#anchor)
 
 ## Commands
-* Init a project: `$ anchor init <project-name>` (by default Typescript)
-* Init a project using JS: `$ anchor init <project-name> --javascript`
-* Project directory:
+
+- Init a project: `$ anchor init <project-name>` (by default Typescript)
+- Init a project using JS: `$ anchor init <project-name> --javascript`
+- Project directory:
+
 ```
 app - Where our frontend code will go
 
@@ -18,9 +21,11 @@ migrations - A basic deploy script
 ```
 
 ## Build
-* Example:
+
+- Example:
+
 ```
-❯ anchor build                                               
+❯ anchor build
 BPF SDK: /Users/abhi3700/.local/share/solana/install/releases/1.8.5/solana-release/bin/sdk/bpf
 cargo-build-bpf child: rustup toolchain list -v
 cargo-build-bpf child: cargo +bpf build --target bpfel-unknown-unknown --release
@@ -32,19 +37,21 @@ To deploy this program:
 The program address will default to this keypair (override with --program-id):
   /Users/abhi3700/F/coding/github_repos/crunchy-vs-smooth/target/deploy/crunchy_vs_smooth-keypair.json
 ```
-* `anchor build` is combination of:
+
+- `anchor build` is combination of:
+
 ```
 $ cargo build-bpf
 $ anchor idl parse -f program/src/lib.rs -o target/idl/basic_0.json
 ```
-* After this, 
-	- `target/` folder gets generated.
-	- IDL is found at `target/idl/<project-name>.json`, which is similar to ABI in solidity and will be using them in a similar way in our JavaScript tests and frontends to communicate with our Solana program via RPC.
-	- `program-id` also gets generated. View via 
-		+ M-1: `$ solana address -k target/deploy/crunchy_vs_smooth-keypair.json`
-		+ M-2: `$ solana-keygen pubkey target/deploy/crunchy_vs_smooth-keypair.json`
-		
-* Replace the `program-id` in 2 places:
+
+- After this,
+  - `target/` folder gets generated.
+  - IDL is found at `target/idl/<project-name>.json`, which is similar to ABI in solidity and will be using them in a similar way in our JavaScript tests and frontends to communicate with our Solana program via RPC.
+  - `program-id` also gets generated. View via
+    - M-1: `$ solana address -k target/deploy/crunchy_vs_smooth-keypair.json`
+    - M-2: `$ solana-keygen pubkey target/deploy/crunchy_vs_smooth-keypair.json`
+- Replace the `program-id` in 2 places:
 
 #### 1. `./programs/<project-name>/src/lib.rs`
 
@@ -65,23 +72,27 @@ crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 ## Test
 
 ## Deploy
-* 2 ways to add details of network, deployer's wallet during deployment: `cluster` param's value in the `Anchor.toml` file of the repo.
-	
-	- M-1: `$ anchor deploy` as CLI command. The provider's info in `Anchor.toml` file: 
+
+- 2 ways to add details of network, deployer's wallet during deployment: `cluster` param's value in the `Anchor.toml` file of the repo.
+
+  - M-1: `$ anchor deploy` as CLI command. The provider's info in `Anchor.toml` file:
+
 ```
 [provider]
 cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 ```
 
-	- M-2: `$ anchor deploy --provider.cluster devnet --provider.wallet ~/.config/solana/id.json`
+    - M-2: `$ anchor deploy --provider.cluster devnet --provider.wallet ~/.config/solana/id.json`
+
 ```
 // it's redundant to use the above provider info in `Anchor.toml` file
 ```
 
 > If the wallet address' directory is in different place that the default, then parse that which contains faucet.
 
-* To __devnet__: Get the output file location from `$ anchor build`
+- To **devnet**: Get the output file location from `$ anchor build`
+
 ```
 // M-1.1: using solana
 // This works, if in `~/.config/solana/cli/config.yml` directory, it is connected to the same network as we want to deploy on. Otherwise, use M-1.2
@@ -112,9 +123,10 @@ Deploy success
 
 > NOTE: `$ anchor deploy` is for localnet. Here, in another terminal tab, start the node via `solana-test-validator`
 
-> NOTE: the wallet account must have token balance for deployment. If not created 
+> NOTE: the wallet account must have token balance for deployment. If not created
 
 ## Upgrade
+
 ```
 // M-1: using solana
 ❯ solana program deploy target/deploy/crunchy_vs_smooth.so --program-id G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
@@ -126,13 +138,14 @@ Program Id: G36EspggVjxkDEKfHGXjsrHjt2sLPJa2hhomSNijzuTx
 ```
 
 ## Concepts
+
 [Solana vs Anchor](https://github.com/abhi3700/My_Learning_Solana/blob/main/faqs.md#q-why-use-anchor-in-writing-solana-programs)
 
 [Source](https://hashnode.com/post/anchor-framework-simplified-for-new-developers-in-solana-cktyttmwf09h6bps189wxcngd)
 
-* Solana program architecture uses `Entrypoint`, `State`, `Processor`, `Instruction`, `Lib` and `Error` files. So, these are taken care of `Anchor`.
-* Anchor has modules, modules are basically a way of grouping structs, functions, methods etc in a large program to make it more easier to export and reuse.
-* `serialization` & `deserialization`: translate data structure or objects into a format(bytes) that can be stored or transmitted. In other words, serialize/deserialize is to pack/unpack data. E.g. In a Redis DB, in order to store an image, it is encoded & in order to retrieve the image, it is decoded.
+- Solana program architecture uses `Entrypoint`, `State`, `Processor`, `Instruction`, `Lib` and `Error` files. So, these are taken care of `Anchor`.
+- Anchor has modules, modules are basically a way of grouping structs, functions, methods etc in a large program to make it more easier to export and reuse.
+- `serialization` & `deserialization`: translate data structure or objects into a format(bytes) that can be stored or transmitted. In other words, serialize/deserialize is to pack/unpack data. E.g. In a Redis DB, in order to store an image, it is encoded & in order to retrieve the image, it is decoded.
 
 > Here, in Solana programs, mostly `accounts`, `structs` are serialized or deserialized.
 
@@ -153,9 +166,10 @@ unpacked.pack(&mut data);
 The entire snippet can be seen [here](../img/borsh_serialize.png).
 
 ## Coding
-* 2 imports to start with: `prelude`, `state`.
-* In anchor, there are no separate files for programs `entrypoint`, `state`, `processor`, `instructions` etc.
-* the `#[program]` attribute initialises the instructions to be passed and should be enclosed in a module (`mod{}`).
+
+- 2 imports to start with: `prelude`, `state`.
+- In anchor, there are no separate files for programs `entrypoint`, `state`, `processor`, `instructions` etc.
+- the `#[program]` attribute initialises the instructions to be passed and should be enclosed in a module (`mod{}`).
 
 ```rs
 #[program]
@@ -165,4 +179,5 @@ pub mod hello {
 ```
 
 ## References
-* [List of account constraints](https://docs.rs/anchor-lang/latest/anchor_lang/derive.Accounts.html)
+
+- [List of account constraints](https://docs.rs/anchor-lang/latest/anchor_lang/derive.Accounts.html)

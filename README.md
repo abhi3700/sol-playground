@@ -8,7 +8,7 @@ A playground for writing, compiling, testing smart contracts on Solana chain(s):
 
 ### `rustup`, `rustc`, `cargo`, `rustfmt`
 
-* Install Rust i.e. `rustc`, `cargo`, `rustfmt`
+- Install Rust i.e. `rustc`, `cargo`, `rustfmt`
 
 ```console
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -53,12 +53,13 @@ info: component 'rustfmt' for target 'aarch64-apple-darwin' is up to date
 `rustc`: Rust compiler
 `rustup`: Rust toolchain installer
 
-* Update: `$ rustup update stable`
-* Uninstall Rust i.e. `rustup`, `rustc`, `cargo`, `rustfmt`
+- Update: `$ rustup update stable`
+- Uninstall Rust i.e. `rustup`, `rustc`, `cargo`, `rustfmt`
 
 ```console
 $ rustup self uninstall
 ```
+
 > NOTE: If there is any error related to `linker` with C, follow this:
 
 > You will also need a linker, which is a program that Rust uses to join its compiled outputs into one file. It is likely you already have one. If you get linker errors, you should install a C compiler, which will typically include a linker. A C compiler is also useful because some common Rust packages depend on C code and will need a C compiler.
@@ -72,71 +73,87 @@ xcode-select --install
 ### [Learn Solana concepts](https://github.com/abhi3700/My_Learning_Solana)
 
 ### Solana
+
 This is for compiling solana contracts
 
 > NOTE: Install the latest version of Solana CLI either by using `stable` or `version_no.` [source](https://docs.solana.com/cli/install-solana-cli-tools)
 
 > Unless, Solana officially solves the `solana-test-validator` issue for M1 processors, refer Error-3 in "Troubleshooting" header below for installation from source.
 
-* Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.8.5/install)"`
-* Check `$ solana --version`
-* Update `$ solana-install update`
-* Uninstall `$ rm -rf /Users/abhi3700/.local/share/solana/`
+- Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.8.5/install)"`
+- Check `$ solana --version`
+- Update `$ solana-install update`
+- Uninstall `$ rm -rf /Users/abhi3700/.local/share/solana/`
 
 > NOTE: `solana-test-validator` might have an issue related to M1 compatibility. Please follow Troubleshooting guide below for Error-3.
 
 ### NodesJS
+
 This is for writing unit tests using Javascript or Typescript.
 
-* Install NodeJS
-* Check `$ node --version && npm --version`
+- Install NodeJS
+- Check `$ node --version && npm --version`
 
-### Anchor 
+### Anchor
+
 [Know more](./anchor)
 
 This is similar to Hardhat (for Solidity contracts)
 
-* Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.18.2 anchor-cli --locked`
-* Check `$ anchor --version`
+- Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.24.2 anchor-cli --locked`
+- Check `$ anchor --version`
 
 > Troubleshoot: Might be due to version related issue. So, update nodejs, solana to minimum version.
+
+> For other OS, try using `cargo` as shown above.
+>
+> Only x86_64 Linux is supported currently using `npm`: `$ npm i -g @project-serum/anchor-cli`
 
 ## [CLI](./cli)
 
 ## Getting started
-* [Greeting contract](https://learn.figment.io/tutorials/deploy-solana-program)
+
+- [Greeting contract](https://learn.figment.io/tutorials/deploy-solana-program)
   - About: It's a simple program, all it does is increment a number every time it's called.
   - Here, fetch the greeting account's `counter` attribute >> increment by 1 >> store it back >> log the stored value
 
-
 ## Coding
+
 ### Program
-* the account variable can only be edited if the account's owner public key matches with the `program_id`
+
+- the account variable can only be edited if the account's owner public key matches with the `program_id`
+
 ```rs
 if (account.owner == program_id) {
   //the variable can be edited.
 }
 ```
-* to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC). 
+
+- to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC).
 
 ### SC Security
-* Owner check
-* Owner signer
-* Tool: `Soteria` [source](https://medium.com/coinmonks/soteria-a-vulnerability-scanner-for-solana-smart-contracts-cc202cf17c99)
 
+- Owner check
+- Owner signer
+- Tool: `Soteria` [source](https://medium.com/coinmonks/soteria-a-vulnerability-scanner-for-solana-smart-contracts-cc202cf17c99)
 
 ## Troubleshoot
+
 ### 1. Error: Balance unchanged
-* _Cause_: This is because of exceeding 5 tokens as airdrop.
-* _Solution_: try <=5 tokens as airdrop `$ solana airdrop 5`
+
+- _Cause_: This is because of exceeding 5 tokens as airdrop.
+- _Solution_: try <=5 tokens as airdrop `$ solana airdrop 5`
 
 ### 2. Error: Account 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6 has insufficient funds for spend (1.21953816 SOL) + fee (0.000885 SOL)
-* _Cause_: This is because of insufficient fund in the program deployer account.
-* _Solution_:Airdrop some tokens (a min. of `1.22042316 SOL`) `$ solana airdrop 5 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6` or `$ solana airdrop 5`
 
-### 3. Error: [1]    19521 illegal hardware instruction  solana-test-validator
-* _Cause_: This happens on Mac M1 processor
-* _Solution_: Uninstall Solana, Rust & then install from scratch using the following steps shown [here](https://dev.to/nickgarfield/how-to-install-solana-dev-tools-on-an-m1-mac-kfn)
+- _Cause_: This is because of insufficient fund in the program deployer account.
+- _Solution_:Airdrop some tokens (a min. of `1.22042316 SOL`) `$ solana airdrop 5 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6` or `$ solana airdrop 5`
+
+### 3. Error: [1] 19521 illegal hardware instruction solana-test-validator
+
+- _Cause_: This happens on Mac M1 processor
+- _Solution_: Uninstall Solana, Rust & then install from scratch using the following steps shown [here](https://dev.to/nickgarfield/how-to-install-solana-dev-tools-on-an-m1-mac-kfn)
+
   1. Make sure that "Open using Rosetta" is disabled in the terminal
      - Open Finder & search for "Terminal"
      - Right click on "Terminal" App & click "Get info"
@@ -150,7 +167,8 @@ if (account.owner == program_id) {
   5. Now, use "Terminal Rosetta" from hereon. [OPTIONAL] Make the background color to something else by clicking <kbd>cmd+i</kbd> on opened terminal to make it look different.
   6. Install Rust, Cargo: `$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
   7. Install Homebrew using the x86 instruction set. Note the prefix used `arch -x86_64`: `$ arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
-  8. Also install OpenSSL in x86 instruction set, but get error like this: 
+  8. Also install OpenSSL in x86 instruction set, but get error like this:
+
   ```console
   // install openssl inside intel processor
   $ arch -x86_64 brew install openssl@1.1
@@ -159,11 +177,15 @@ if (account.owner == program_id) {
     arch -arm64 brew install ...
   To install under x86_64, install Homebrew into /usr/local.
   ```
+
   Then tried doing under ARM and it was success.
+
   ```console
   $ arch -arm64 brew install openssl@1.1
   ```
+
   9. Create a new file via `$ touch ~/.cargo/config` and copy paste this:
+
   ```
   [target.x86_64-apple-darwin]
   rustflags = [
@@ -177,24 +199,32 @@ if (account.owner == program_id) {
     "-C", "link-arg=dynamic_lookup",
   ]
   ```
-  10.  [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
-       - first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
-       - Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
-       - Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
-       - More to the folder: `$ cd solana-1.8.5`
-  11.  Build
+
+  10. [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
+      - first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
+      - Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
+      - Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
+      - More to the folder: `$ cd solana-1.8.5`
+  11. Build
+
 ```
 $ cargo build
 ```
-  12.  Install coreutils
-```	
+
+12. Install coreutils
+
+```
 $ arch -arm64 brew install coreutils
 ```
-  13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
+
+13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
+
 ```
 $ ./scripts/cargo-install-all.sh .
 ```
-  14. Add the binaries folder into the PATH.
+
+14. Add the binaries folder into the PATH.
+
 ```
 // open .zprofile in ST editor
 $ subl ~/.zprofile
@@ -205,14 +235,17 @@ export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
 // activate command
 $ source ~/.zprofile
 ```
+
 > NOTE: For multiple versions just open `~/.zprofile` file & change the version via commenting the previous version. Also, make sure that the path exist. Hence, it looks like this:
+
 ```
 # export PATH="/Users/abhi3700/solana-1.8.0"/bin:"$PATH"
 # export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
 export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
 ```
 
-  15. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+15. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+
 ```
 ❯ solana-test-validator                                                       ⏎
 Ledger location: test-ledger
@@ -226,22 +259,27 @@ TPU Address: 127.0.0.1:1027
 JSON RPC URL: http://127.0.0.1:8899
 ⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
 ```
-  16. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
+
+16. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
 
 ### 4. Error: BPF SDK path does not exist: /Users/abhi3700/.cargo/bin/sdk/bpf: No such file or directory (os error 2)
-* _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
-* _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
+
+- _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
+- _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
 ### 5. Program deployment error:
-* _Error_:
+
+- _Error_:
+
 ```
 Error: Custom: Invalid blockhash
 There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)), stdout: "", stderr: "" }.
 ```
-* _Cause_:
+
+- _Cause_:
   - It could be due to `solana-cli` conflict.
   - It could be because the new `program_id` generated into `target/deploy/` is put into the `declare_id`, `Anchor.toml`.
-* _Solution_: Check the 2 things above.
+- _Solution_: Check the 2 things above.
   - try with `solana-1.8.0`, if not working with `solana-1.9.4`,
 
 ```
@@ -251,19 +289,20 @@ rustc 1.57.0 (f1edd0429 2021-11-29)
 ```
 
 ## References
-* [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
-* [Solana vs Ethereum account](https://solana.wiki/zh-cn/docs/ethereum-comparison/account/)
-* [Solana internals Part 1: what are the native on-chain programs and why do they matter?](https://medium.com/coinmonks/solana-internals-part-1-what-are-the-native-on-chain-programs-and-why-do-they-matter-61c981483e86)
-* [Get started with Anchor](https://project-serum.github.io/anchor/tutorials/tutorial-0.html)
-* [Build Solana Anchor Blog with Svelte Front end Tutorial - Part 1 (Rust)](https://www.youtube.com/watch?v=w-n87Aq3f8k)
-* [Solana Tutorial | Solana for Developers](https://www.youtube.com/watch?v=qNIhClYDjR8)
-* [Building SmartContracts With #Solana and #Rust](https://www.youtube.com/watch?v=gA7hFdq2h9Q)
-* [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
-* [Learning How to Build on Solana](https://www.brianfriel.xyz/learning-how-to-build-on-solana/)
-* [ok so what the fuck is the deal with solana anyway](https://2501babe.github.io/posts/solana101.html)
-* [Solana Development Tutorial: Key Concepts](https://solongwallet.medium.com/solana-development-tutorial-key-concepts-62b6d9077bb9)
-* [Solana Transactions in Depth](https://medium.com/@asmiller1989/solana-transactions-in-depth-1f7f7fe06ac2)
-* Solana 101:
+
+- [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
+- [Solana vs Ethereum account](https://solana.wiki/zh-cn/docs/ethereum-comparison/account/)
+- [Solana internals Part 1: what are the native on-chain programs and why do they matter?](https://medium.com/coinmonks/solana-internals-part-1-what-are-the-native-on-chain-programs-and-why-do-they-matter-61c981483e86)
+- [Get started with Anchor](https://project-serum.github.io/anchor/tutorials/tutorial-0.html)
+- [Build Solana Anchor Blog with Svelte Front end Tutorial - Part 1 (Rust)](https://www.youtube.com/watch?v=w-n87Aq3f8k)
+- [Solana Tutorial | Solana for Developers](https://www.youtube.com/watch?v=qNIhClYDjR8)
+- [Building SmartContracts With #Solana and #Rust](https://www.youtube.com/watch?v=gA7hFdq2h9Q)
+- [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/dabit3/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
+- [Learning How to Build on Solana](https://www.brianfriel.xyz/learning-how-to-build-on-solana/)
+- [ok so what the fuck is the deal with solana anyway](https://2501babe.github.io/posts/solana101.html)
+- [Solana Development Tutorial: Key Concepts](https://solongwallet.medium.com/solana-development-tutorial-key-concepts-62b6d9077bb9)
+- [Solana Transactions in Depth](https://medium.com/@asmiller1989/solana-transactions-in-depth-1f7f7fe06ac2)
+- Solana 101:
   - [Introduction](https://learn.figment.io/tutorials/solana-101)
   - [Setup the project](https://learn.figment.io/tutorials/setup-the-project)
   - [Connect to the Solana Devnet](https://learn.figment.io/tutorials/connect-to-devnet)
@@ -277,6 +316,7 @@ rustc 1.57.0 (f1edd0429 2021-11-29)
   - [Send Greetings](https://learn.figment.io/tutorials/send-greetings)
 
 ### Security
-* [From Ethereum smart contracts to Solana programs: two common security pitfalls and beyond](https://medium.com/coinmonks/from-ethereum-smart-contracts-to-solana-programs-two-common-security-pitfalls-and-beyond-ea5b919ade1c)
-* [Solana Smart Contracts: Common Pitfalls and How to Avoid Them](https://blog.neodyme.io/posts/solana_common_pitfalls)
-* [Soteria — A vulnerability scanner for Solana smart contracts](https://medium.com/coinmonks/soteria-a-vulnerability-scanner-for-solana-smart-contracts-cc202cf17c99)
+
+- [From Ethereum smart contracts to Solana programs: two common security pitfalls and beyond](https://medium.com/coinmonks/from-ethereum-smart-contracts-to-solana-programs-two-common-security-pitfalls-and-beyond-ea5b919ade1c)
+- [Solana Smart Contracts: Common Pitfalls and How to Avoid Them](https://blog.neodyme.io/posts/solana_common_pitfalls)
+- [Soteria — A vulnerability scanner for Solana smart contracts](https://medium.com/coinmonks/soteria-a-vulnerability-scanner-for-solana-smart-contracts-cc202cf17c99)
