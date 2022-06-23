@@ -85,6 +85,7 @@ This is for compiling solana contracts
 - Update `$ solana-install update`
 - Uninstall `$ rm -rf /Users/abhi3700/.local/share/solana/`
 
+> After update, if the solana version shows the old version via `$ solana --version`. then edit the `~/.zprofile` & comment out the shown version directory like this & let the active_release show the file
 > NOTE: `solana-test-validator` might have an issue related to M1 compatibility. Please follow Troubleshooting guide below for Error-3.
 
 ### NodesJS
@@ -107,7 +108,7 @@ This is similar to Hardhat (for Solidity contracts)
 
 > For other OS, try using `cargo` as shown above.
 >
-> Only x86_64 Linux is supported currently using `npm`: `$ npm i -g @project-serum/anchor-cli`
+> Only x86_64 / Linux distributed in NPM package right now. `$ npm i -g @project-serum/anchor-cli`
 
 ## [CLI](./cli)
 
@@ -207,60 +208,60 @@ if (account.owner == program_id) {
       - More to the folder: `$ cd solana-1.8.5`
   11. Build
 
-```
-$ cargo build
-```
+  ```
+  $ cargo build
+  ```
 
-12. Install coreutils
+  12. Install coreutils
 
-```
-$ arch -arm64 brew install coreutils
-```
+  ```
+  $ arch -arm64 brew install coreutils
+  ```
 
-13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
+  13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
 
-```
-$ ./scripts/cargo-install-all.sh .
-```
+  ```
+  $ ./scripts/cargo-install-all.sh .
+  ```
 
-14. Add the binaries folder into the PATH.
+  14. Add the binaries folder into the PATH.
 
-```
-// open .zprofile in ST editor
-$ subl ~/.zprofile
+  ```
+  // open .zprofile in ST editor
+  $ subl ~/.zprofile
 
-// Add this line to EOL
-export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
+  // Add this line to EOL
+  export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
 
-// activate command
-$ source ~/.zprofile
-```
+  // activate command
+  $ source ~/.zprofile
+  ```
 
-> NOTE: For multiple versions just open `~/.zprofile` file & change the version via commenting the previous version. Also, make sure that the path exist. Hence, it looks like this:
+  > NOTE: For multiple versions just open `~/.zprofile` file & change the version via commenting the previous version. Also, make sure that the path exist. Hence, it looks like this:
 
-```
-# export PATH="/Users/abhi3700/solana-1.8.0"/bin:"$PATH"
-# export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
-export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
-```
+  ```
+  # export PATH="/Users/abhi3700/solana-1.8.0"/bin:"$PATH"
+  # export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
+  export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
+  ```
 
-15. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+  15. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
 
-```
-❯ solana-test-validator                                                       ⏎
-Ledger location: test-ledger
-Log: test-ledger/validator.log
-Identity: 3RvvwAbhmFDeF8n9SgMKKTyphDev3s9Gx6mefR65o19N
-Genesis Hash: DrFFgvyNjJXgfRBgPDcTgQ7WmyFE2BkX1aRK5s8twrod
-Version: 1.8.5
-Shred Version: 62237
-Gossip Address: 127.0.0.1:1024
-TPU Address: 127.0.0.1:1027
-JSON RPC URL: http://127.0.0.1:8899
-⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
-```
+  ```
+  ❯ solana-test-validator                                                       ⏎
+  Ledger location: test-ledger
+  Log: test-ledger/validator.log
+  Identity: 3RvvwAbhmFDeF8n9SgMKKTyphDev3s9Gx6mefR65o19N
+  Genesis Hash: DrFFgvyNjJXgfRBgPDcTgQ7WmyFE2BkX1aRK5s8twrod
+  Version: 1.8.5
+  Shred Version: 62237
+  Gossip Address: 127.0.0.1:1024
+  TPU Address: 127.0.0.1:1027
+  JSON RPC URL: http://127.0.0.1:8899
+  ⠄ 00:00:10 | Processed Slot: 19 | Confirmed Slot: 19 | Finalized Slot: 0 | Snaps
+  ```
 
-16. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
+  16. Now, during Anchor `build` might occur an issue related to `bpf` folder does not exist as the `solana` has been installed from source. So, follow "Error-4" for doing the additional step of copying `sdk/bpf/` folder into `~/.cargo/bin/`.
 
 ### 4. Error: BPF SDK path does not exist: /Users/abhi3700/.cargo/bin/sdk/bpf: No such file or directory (os error 2)
 

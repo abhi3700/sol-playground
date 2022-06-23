@@ -77,13 +77,13 @@ crunchy_vs_smooth = "EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS"
 
   - M-1: `$ anchor deploy` as CLI command. The provider's info in `Anchor.toml` file:
 
-```
-[provider]
-cluster = "devnet"
-wallet = "~/.config/solana/id.json"
-```
+  ```
+  [provider]
+  cluster = "devnet"
+  wallet = "~/.config/solana/id.json"
+  ```
 
-    - M-2: `$ anchor deploy --provider.cluster devnet --provider.wallet ~/.config/solana/id.json`
+  - M-2: `$ anchor deploy --provider.cluster devnet --provider.wallet ~/.config/solana/id.json`
 
 ```
 // it's redundant to use the above provider info in `Anchor.toml` file
