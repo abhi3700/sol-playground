@@ -4,77 +4,17 @@ A playground for writing, compiling, testing smart contracts on Solana chain(s):
 
 ## Installation
 
-> The following is for Mac OS M1.
+> The following is for Mac OS M1 & also for Lima VM on top of macOS M1.
 
-### `rustup`, `rustc`, `cargo`, `rustfmt`
+### Rust
 
-- Install Rust i.e. `rustc`, `cargo`, `rustfmt`
-
-```console
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-This will download and install the official compiler for the Rust
-programming language, and its package manager, Cargo.
-
-Rustup metadata and toolchains will be installed into the Rustup
-home directory, located at:
-
-  /Users/abhi3700/.rustup
-
-This can be modified with the RUSTUP_HOME environment variable.
-
-The Cargo home directory located at:
-
-  /Users/abhi3700/.cargo
-
-This can be modified with the CARGO_HOME environment variable.
-
-The cargo, rustc, rustup and other commands will be added to
-Cargo's bin directory, located at:
-
-  /Users/abhi3700/.cargo/bin
-
-This path will then be added to your PATH environment variable by
-modifying the profile files located at:
-
-  /Users/abhi3700/.profile
-  /Users/abhi3700/.zshenv
-
-You can uninstall at any time with rustup self uninstall and
-these changes will be reverted.
-```
-
-```console
-❯ rustup component add rustfmt                                                ⏎
-info: component 'rustfmt' for target 'aarch64-apple-darwin' is up to date
-```
-
-`cargo`: Rust package manager
-`rustc`: Rust compiler
-`rustup`: Rust toolchain installer
-
-- Update: `$ rustup update stable`
-- Uninstall Rust i.e. `rustup`, `rustc`, `cargo`, `rustfmt`
-
-```console
-$ rustup self uninstall
-```
-
-> NOTE: If there is any error related to `linker` with C, follow this:
-
-> You will also need a linker, which is a program that Rust uses to join its compiled outputs into one file. It is likely you already have one. If you get linker errors, you should install a C compiler, which will typically include a linker. A C compiler is also useful because some common Rust packages depend on C code and will need a C compiler.
-
-> On macOS, you can get a C compiler by running:
-
-```console
-xcode-select --install
-```
-
-### [Learn Solana concepts](https://github.com/abhi3700/My_Learning_Solana)
+Follow [this](https://github.com/abhi3700/My_Learning-Rust/blob/main/README.md#installation)
 
 ### Solana
 
-This is for compiling solana contracts
+[Learn Solana concepts](https://github.com/abhi3700/My_Learning_Solana)
+
+This is for compiling solana contracts/programs.
 
 > NOTE: Install the latest version of Solana CLI either by using `stable` or `version_no.` [source](https://docs.solana.com/cli/install-solana-cli-tools)
 
@@ -88,18 +28,45 @@ This is for compiling solana contracts
 > After update, if the solana version shows the old version via `$ solana --version`. then edit the `~/.zprofile` & comment out the shown version directory like this & let the active_release show the file
 > NOTE: `solana-test-validator` might have an issue related to M1 compatibility. Please follow Troubleshooting guide below for Error-3.
 
-### NodesJS
+### NodeJS
 
 This is for writing unit tests using Javascript or Typescript.
 
-- Install NodeJS
-- Check `$ node --version && npm --version`
+- `nvm`
+- `node`
+- `npm`
+- `yarn`
+
+Check the installation steps [here](https://github.com/abhi3700/My_Learning_NodeJSTS/blob/main/README.md#installation).
 
 ### Anchor
 
 [Know more](./anchor)
 
 This is similar to Hardhat (for Solidity contracts)
+
+It's better to use `avm` to manage multiple versions of `Anchor`.
+
+```console
+$ cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+```
+
+To use latest version, try this:
+
+```console
+$ avm install latest
+$ avm use latest
+```
+
+---
+
+In case of any issue for Ubuntu, do this first:
+
+```console
+$ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-config build-essential libudev-dev libssl-dev
+```
+
+---
 
 - Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.24.2 anchor-cli --locked`
 - Check `$ anchor --version`
