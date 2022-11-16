@@ -4,23 +4,52 @@ A playground for writing, compiling, testing smart contracts on Solana chain(s):
 
 ## Installation
 
-> The following is for Mac OS M1 & also for Lima VM on top of macOS M1.
+> The following is for macOS M1 & also for Lima VM run on top of macOS M1.
+
+> Issue for macOS M1: not able to run `solana-test-validator`. Solved via Troubleshoot [#3](https://github.com/abhi3700/sol-playground/blob/main/README.md#3-error-1-19521-illegal-hardware-instruction-solana-test-validator).
+> Issue for lima VM: Still unsuccessful with `solana` installation. Tried with source. getting this error: `No package 'libudev' found` (TODO)
 
 ### Rust
+
+macOS M1 ✅ | lima VM ✅
 
 Follow [this](https://github.com/abhi3700/My_Learning-Rust/blob/main/README.md#installation)
 
 ### Solana
 
+macOS M1 ✅ | lima VM
+
 [Learn Solana concepts](https://github.com/abhi3700/My_Learning_Solana)
 
 This is for compiling solana contracts/programs.
+
+Install/Update using `brew`
+
+```console
+brew install solana
+```
+
+update `solana-install`
+
+```console
+❯ solana-install update
+Install is up to date. 1.10.40 is the latest compatible release
+
+❯ solana --version
+solana-cli 1.13.4 (src:devbuild; feat:4011803773)
+```
+
+#### Archived (commented out)
+
+view in raw format
+
+<!--
 
 > NOTE: Install the latest version of Solana CLI either by using `stable` or `version_no.` [source](https://docs.solana.com/cli/install-solana-cli-tools)
 
 > Unless, Solana officially solves the `solana-test-validator` issue for M1 processors, refer Error-3 in "Troubleshooting" header below for installation from source.
 
-- Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.8.5/install)"`
+- Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.14.7/install)"`
 - Check `$ solana --version`
 - Update `$ solana-install update`
 - Uninstall `$ rm -rf /Users/abhi3700/.local/share/solana/`
@@ -28,7 +57,11 @@ This is for compiling solana contracts/programs.
 > After update, if the solana version shows the old version via `$ solana --version`. then edit the `~/.zprofile` & comment out the shown version directory like this & let the active_release show the file
 > NOTE: `solana-test-validator` might have an issue related to M1 compatibility. Please follow Troubleshooting guide below for Error-3.
 
+ -->
+
 ### NodeJS
+
+macOS M1 ✅ | lima VM ✅
 
 This is for writing unit tests using Javascript or Typescript.
 
@@ -41,9 +74,21 @@ Check the installation steps [here](https://github.com/abhi3700/My_Learning_Node
 
 ### Anchor
 
-[Know more](./anchor)
+macOS M1 ✅ | lima VM ✅
 
-This is similar to Hardhat (for Solidity contracts)
+This is similar to Hardhat/Truffle/Foundry/Brownie (for EVM contracts). [Know more](./anchor)
+
+> Don't follow `npm` to install `anchor-cli` i.e. don't use this command: `$ npm install -g @project-serum/anchor-cli` on macOS. Otherwise you will get this error:
+
+```console
+❯ anchor
+Only x86_64 / Linux distributed in NPM package right now.
+Trying globally installed anchor.
+```
+
+> Following is true for both macOS & linux VM like lima.
+
+Hence, install using `avm`.
 
 It's better to use `avm` to manage multiple versions of `Anchor`.
 
@@ -60,22 +105,11 @@ $ avm use latest
 
 ---
 
-In case of any issue for Ubuntu, do this first:
+In case of any issue for **Ubuntu**, do this first:
 
 ```console
 $ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-config build-essential libudev-dev libssl-dev
 ```
-
----
-
-- Run `$ cargo install --git https://github.com/project-serum/anchor --tag v0.24.2 anchor-cli --locked`
-- Check `$ anchor --version`
-
-> Troubleshoot: Might be due to version related issue. So, update nodejs, solana to minimum version.
-
-> For other OS, try using `cargo` as shown above.
->
-> Only x86_64 / Linux distributed in NPM package right now. `$ npm i -g @project-serum/anchor-cli`
 
 ## [CLI](./cli)
 
@@ -154,7 +188,7 @@ if (account.owner == program_id) {
 
   9. Create a new file via `$ touch ~/.cargo/config` and copy paste this:
 
-  ```
+  ```console
   [target.x86_64-apple-darwin]
   rustflags = [
     "-C", "link-arg=-undefined",
@@ -170,35 +204,35 @@ if (account.owner == program_id) {
 
   10. [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
       - first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
-      - Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.8.5 version`.
-      - Now, get `solana-1.8.5` folder from `solana-1.8.5.tar.gz`. You can delete the `tar.gz` file.
-      - More to the folder: `$ cd solana-1.8.5`
+      - Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.14.7 version`.
+      - Now, get `solana-1.14.7` folder from `solana-1.14.7.tar.gz`. You can delete the `tar.gz` file.
+      - More to the folder: `$ cd solana-1.14.7`
   11. Build
 
-  ```
+  ```console
   $ cargo build
   ```
 
   12. Install coreutils
 
-  ```
+  ```console
   $ arch -arm64 brew install coreutils
   ```
 
   13. Install script to generate binaries into `./bin` folder. (takes `1123 seconds`)
 
-  ```
+  ```console
   $ ./scripts/cargo-install-all.sh .
   ```
 
   14. Add the binaries folder into the PATH.
 
-  ```
+  ```console
   // open .zprofile in ST editor
-  $ subl ~/.zprofile
+  $ code ~/.zprofile
 
   // Add this line to EOL
-  export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
+  export PATH="/Users/abhi3700/solana-1.14.7"/bin:"$PATH"
 
   // activate command
   $ source ~/.zprofile
@@ -209,18 +243,19 @@ if (account.owner == program_id) {
   ```
   # export PATH="/Users/abhi3700/solana-1.8.0"/bin:"$PATH"
   # export PATH="/Users/abhi3700/solana-1.8.5"/bin:"$PATH"
-  export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
+  # export PATH="/Users/abhi3700/solana-1.9.4"/bin:"$PATH"
+  export PATH="/Users/abhi3700/solana-1.14.7"/bin:"$PATH"
   ```
 
-  15. Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
+  1.  Run the commands like `solana`, `solana-test-validator`. NOTE: all the blocks will be stored in `test-ledger/` [Better to delete after the localnet running is done]. To shutdown this, press <kbd>ctrl+c</kbd> and then restart from the stopped block.
 
-  ```
+  ```console
   ❯ solana-test-validator                                                       ⏎
   Ledger location: test-ledger
   Log: test-ledger/validator.log
   Identity: 3RvvwAbhmFDeF8n9SgMKKTyphDev3s9Gx6mefR65o19N
   Genesis Hash: DrFFgvyNjJXgfRBgPDcTgQ7WmyFE2BkX1aRK5s8twrod
-  Version: 1.8.5
+  Version: 1.14.7
   Shred Version: 62237
   Gossip Address: 127.0.0.1:1024
   TPU Address: 127.0.0.1:1027
@@ -233,7 +268,7 @@ if (account.owner == program_id) {
 ### 4. Error: BPF SDK path does not exist: /Users/abhi3700/.cargo/bin/sdk/bpf: No such file or directory (os error 2)
 
 - _Cause_: This happens during `$ anchor build`. This error occurs as the `solana` has been installed from source.
-- _Solution_: Just copy `~/solana-1.8.5/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
+- _Solution_: Just copy `~/solana-1.14.7/bin/sdk` to here: `~/.cargo/bin/`. Note: there might be `sdk` shortcut. Just replace this with the `sdk` folder containing `bpf/`. Then it would build successfully.
 
 ### 5. Program deployment error:
 
