@@ -39,25 +39,7 @@ Install is up to date. 1.10.40 is the latest compatible release
 solana-cli 1.13.4 (src:devbuild; feat:4011803773)
 ```
 
-#### Archived (commented out)
-
-view in raw format
-
-<!--
-
-> NOTE: Install the latest version of Solana CLI either by using `stable` or `version_no.` [source](https://docs.solana.com/cli/install-solana-cli-tools)
-
-> Unless, Solana officially solves the `solana-test-validator` issue for M1 processors, refer Error-3 in "Troubleshooting" header below for installation from source.
-
-- Run `$ sh -c "$(curl -sSfL https://release.solana.com/v1.14.7/install)"`
-- Check `$ solana --version`
-- Update `$ solana-install update`
-- Uninstall `$ rm -rf /Users/abhi3700/.local/share/solana/`
-
-> After update, if the solana version shows the old version via `$ solana --version`. then edit the `~/.zprofile` & comment out the shown version directory like this & let the active_release show the file
-> NOTE: `solana-test-validator` might have an issue related to M1 compatibility. Please follow Troubleshooting guide below for Error-3.
-
- -->
+Here, the problem is that the `solana-test-validator` fails on console. Hence, it is recommended to install using source via following Troubleshooting [#3](https://github.com/abhi3700/sol-playground/blob/main/README.md#3-error-1-19521-illegal-hardware-instruction-solana-test-validator).
 
 ### NodeJS
 
@@ -285,7 +267,7 @@ There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)
 - _Solution_: Check the 2 things above.
   - try with `solana-1.8.0`, if not working with `solana-1.9.4`,
 
-```
+```console
 solana-cli 1.8.0 (src:4a8ff62a; feat:1813598585)
 anchor-cli 0.20.1
 rustc 1.57.0 (f1edd0429 2021-11-29)
