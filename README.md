@@ -124,6 +124,7 @@ if (account.owner == program_id) {
 ## Tools
 
 - **Gelato** (transaction scheduling) like tool: [**Clockwork**](https://docs.clockwork.xyz/about/readme)
+  > Developers can use Clockwork to schedule transactions and automate smart-contracts without relying on centralized infrastructure. This allows developers to build more complex and robust applications on Solana.
 
 ## Troubleshoot
 
