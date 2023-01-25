@@ -6,8 +6,8 @@ A playground for writing, compiling, testing smart contracts on Solana chain(s):
 
 > The following is for macOS M1 & also for Lima VM run on top of macOS M1.
 
-> Issue for macOS M1: not able to run `solana-test-validator`. Solved via Troubleshoot [#3](https://github.com/abhi3700/sol-playground/blob/main/README.md#3-error-1-19521-illegal-hardware-instruction-solana-test-validator).
-> Issue for lima VM: Still unsuccessful with `solana` installation. Tried with source. getting this error: `No package 'libudev' found` (TODO)
+> - Issue for **macOS M1**: not able to run `solana-test-validator`. Solved via Troubleshoot [#3](https://github.com/abhi3700/sol-playground/blob/main/README.md#3-error-1-19521-illegal-hardware-instruction-solana-test-validator).
+> - Issue for **lima VM**: Still unsuccessful with `solana` installation. Tried with source. getting this error: `No package 'libudev' found` (TODO: fix this)
 
 ### Rust
 
@@ -23,10 +23,12 @@ macOS M1 ✅ | lima VM
 
 This is for compiling solana contracts/programs.
 
+#### M-1: Install using `brew`
+
 Install/Update using `brew`
 
 ```console
-brew install solana
+$ brew install solana
 ```
 
 update `solana-install`
@@ -40,6 +42,54 @@ solana-cli 1.13.4 (src:devbuild; feat:4011803773)
 ```
 
 Here, the problem is that the `solana-test-validator` fails on console. Hence, it is recommended to install using source via following Troubleshooting [#3](https://github.com/abhi3700/sol-playground/blob/main/README.md#3-error-1-19521-illegal-hardware-instruction-solana-test-validator).
+
+---
+
+Uninstall:
+
+```console
+$ brew uninstall solana
+```
+
+#### M-2: Install using binaries [RECOMMENDED]
+
+[SOURCE](https://solanacookbook.com/getting-started/installation.html#downloading-binaries)
+
+1. Download specific version's binaries with name: `solana-release-aarch64-apple-darwin.tar.bz2` from [releases page](https://github.com/solana-labs/solana/releases) into home directory i.e. `~`
+2. Then, extract the folder via double-click the folder, into home directory. While writing this doc, it's `1.13.3 version`.
+3. Now, rename the folder from `solana-releases` to `solana-1.13.3`. No need to `cargo build` as it's already built. Just link the binaries to `PATH`.
+4. Add the following to `~/.zprofile`:
+
+   ```console
+   export PATH="$HOME/solana-1.13.3/bin:$PATH"
+   ```
+
+5. Activate the changes:
+
+   ```console
+   $ source ~/.zprofile
+   ```
+
+6. Check the version:
+
+   > In case of access denied to the binary CLI command execution, just go to Finder App & right click on the binary file & click on `Open With Terminal` option. Then, it will ask for the permission to execute the binary file. Click on `Open` option & then it will work.
+
+   ```console
+   ❯ solana -V
+    solana-cli 1.13.3 (src:3271b83d; feat:4011803773)
+   ```
+
+7. Check for `solana-test-validator` if running properly:
+
+   ```console
+   ❯ solana-test-validator
+   ```
+
+   > If you get this error: `Error: 1:19521 Illegal hardware instruction (core dumped)`, then follow Troubleshooting [#3](https://github.com/abhi3700/sol-playground/blob/main/README.md#3-error-1-19521-illegal-hardware-instruction-solana-test-validator).
+
+---
+
+In case of any update, if needed just follow the steps from `#1` to `#6`.
 
 ### NodeJS
 
@@ -70,7 +120,7 @@ Trying globally installed anchor.
 
 > Following is true for both macOS & linux VM like lima.
 
-Hence, install using `avm`.
+Hence, install using `avm`. Anchor version manager (`avm`) is a tool for using multiple versions of the `anchor-cli`.
 
 It's better to use `avm` to manage multiple versions of `Anchor`.
 
@@ -97,9 +147,93 @@ $ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-con
 
 ## Getting started
 
+1. Start a project `$ anchor init hello-solana`
+2. write the code in `src/lib.rs` & add supported files
+   - `constant.rs`
+   - `error.rs`
+   - `states.rs`
+3. Build: `$ anchor build`
+4. Get the program address during build: `$ solana address -k <KEYPAIR-FILE-PATH>` e.g. `$ solana address -k target/deploy/hello_solana-keypair.json`
+   ```console
+    ❯ solana address -k target/deploy/hello_solana-keypair.json                                     ⏎
+    BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+   ```
+5. Now, add the address into `Anchor.toml` file & also in `src/lib.rs` in `declare_id!()` macro.
+6. Check sufficient SOL/lamports in the deployer (default keypair is `~/.config/solana/id.json`) account: `$ solana balance`:
+
+   - If not, then fund the account: `$ solana airdrop 1`, for localnet it's not needed though.
+   - Check balance again: `$ solana balance`
+
+   ```console
+    ❯ solana balance                                                                                ⏎
+    500000000 SOL
+   ```
+
+7. For localnet (ensure `$ solana config get` -> connected to localnet), deploy: `$ anchor deploy` or `$ solana program deploy target/deploy/hello_world-keypair.json`
+
+   > Run `solana-test-validator` in another terminal.
+
+   Using `anchor-cli`:
+
+   ```console
+   ❯ anchor deploy                                                  ⏎
+   Deploying workspace: http://localhost:8899
+   Upgrade authority: /Users/abhi3700/.config/solana/id.json
+   Deploying program "hello-solana"...
+   Program path: /Users/abhi3700/F/coding/github_repos/sol-playground/sc/hello-solana/target/deploy/hello_solana.so...
+   Program Id: BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+   ```
+
+   **OR**
+
+   Using `solana-cli`:
+
+   ```console
+   ❯ solana program deploy target/deploy/hello_solana.so                                           ⏎
+   Program Id: BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+   ```
+
+   View the program details:
+
+   ```console
+   ❯ solana program show BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+
+   Program Id: BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+   Owner: BPFLoaderUpgradeab1e11111111111111111111111
+   ProgramData Address: DR6WL7PQRepVzw7q772gZ9tf8CQGmhcrc8BX2vfgabyp
+   Authority: HTeVsf7bg3EuAKKpg74p4soHVoxJAYCSmK2PBJZt8Dyu
+   Last Deployed In Slot: 87
+   Data Length: 356368 (0x57010) bytes
+   Balance: 2.48152536 SOL
+   ```
+
+8. Test: `$ anchor test`
+9. Upgrade (if required).
+
+   ```console
+   ❯ solana program deploy target/deploy/hello_solana.so
+   Program Id: BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+   ```
+
+   View the program details:
+
+   ```console
+   ❯ solana program show BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+
+    Program Id: BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+    Owner: BPFLoaderUpgradeab1e11111111111111111111111
+    ProgramData Address: DR6WL7PQRepVzw7q772gZ9tf8CQGmhcrc8BX2vfgabyp
+    Authority: HTeVsf7bg3EuAKKpg74p4soHVoxJAYCSmK2PBJZt8Dyu
+    Last Deployed In Slot: 8360
+    Data Length: 356368 (0x57010) bytes
+    Balance: 2.48152536 SOL
+   ```
+
+---
+
 - [Greeting contract](https://learn.figment.io/tutorials/deploy-solana-program)
-  - About: It's a simple program, all it does is increment a number every time it's called.
-  - Here, fetch the greeting account's `counter` attribute >> increment by 1 >> store it back >> log the stored value
+- About: It's a simple program, all it does is increment a number every time it's called.
+- Here, fetch the greeting account's `counter` attribute >> increment by 1 >> store it back >> log the stored value
 
 ## Coding
 
@@ -109,11 +243,23 @@ $ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-con
 
 ```rs
 if (account.owner == program_id) {
-  //the variable can be edited.
+//the variable can be edited.
 }
 ```
 
 - to detect whether an address is a program, just check the account info (fetched from outside the SC) is not `NULL` or check if the `program_id` has `is_executable` as `true` (can be done from inside/outside the SC).
+
+When we write a program, we should add function & then corresponding struct & then test.
+
+### Function
+
+Every function usually comes with a struct like this:
+
+![](img/solana_func_w_struct.png)
+
+**L-10:14 & L-18:** shows that.
+
+---
 
 ### SC Security
 
@@ -125,6 +271,7 @@ if (account.owner == program_id) {
 
 - **Gelato** (transaction scheduling) like tool: [**Clockwork**](https://docs.clockwork.xyz/about/readme)
   > Developers can use Clockwork to schedule transactions and automate smart-contracts without relying on centralized infrastructure. This allows developers to build more complex and robust applications on Solana.
+- Remix like IDE for Solana - https://beta.solpg.io/
 
 ## Troubleshoot
 
@@ -189,9 +336,9 @@ if (account.owner == program_id) {
   ]
   ```
 
-  10. [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & won't be deleted by mistake.
-      - first download the `tar.gz` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
-      - Then, extract the folder via `$ tar -xzvf <filename.tar.gz>` into home directory. While writing, it's `1.14.7 version`.
+  10. [For UPDATE, start from this step] Now, clone solana from source via `$ git clone https://github.com/solana-labs/solana.git`. NOTE: Do it in the home directory & then won't be deleted by mistake.
+      - first download the `solana-release-aarch64-apple-darwin.tar.bz2` file from [here](https://github.com/solana-labs/solana/releases) into home directory i.e. `/Users/abhi3700/`
+      - Then, extract the folder via double-click into home directory. While writing, it's `1.13.3 version`.
       - Now, get `solana-1.14.7` folder from `solana-1.14.7.tar.gz`. You can delete the `tar.gz` file.
       - More to the folder: `$ cd solana-1.14.7`
   11. Build
@@ -213,9 +360,10 @@ if (account.owner == program_id) {
   ```
 
   14. Add the binaries folder into the PATH.
+      > Skip step `#11` to `#13` if already available with binary. In case of access denied to the binary CLI command execution, just go to Finder App & right click on the binary file & click on `Open With Terminal` option. Then, it will ask for the permission to execute the binary file. Click on `Open` option & then it will work.
 
   ```console
-  // open .zprofile in ST editor
+  // open .zprofile in VSC editor
   $ code ~/.zprofile
 
   // Add this line to EOL
@@ -278,6 +426,8 @@ anchor-cli 0.20.1
 rustc 1.57.0 (f1edd0429 2021-11-29)
 ```
 
+###
+
 ## References
 
 - [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
@@ -292,6 +442,7 @@ rustc 1.57.0 (f1edd0429 2021-11-29)
 - [ok so what the fuck is the deal with solana anyway](https://2501babe.github.io/posts/solana101.html)
 - [Solana Development Tutorial: Key Concepts](https://solongwallet.medium.com/solana-development-tutorial-key-concepts-62b6d9077bb9)
 - [Solana Transactions in Depth](https://medium.com/@asmiller1989/solana-transactions-in-depth-1f7f7fe06ac2)
+- [Anchor - Solana Smart Contract Framework](https://www.anchor-lang.com/)
 
 ### Tutorials
 

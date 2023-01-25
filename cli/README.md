@@ -10,6 +10,12 @@ This shows the CLI commands for setting solana node (deploy) & running the solan
 
 ### Cluster
 
+- Get cluster version: `$ solana --version`
+
+```bash
+$ solana cluster-version
+```
+
 - Cluster: networks like mainnet, devnet, testnet, localnet.
 - Get config details of the cluster (connected to) via `$ solana config get`
 
@@ -30,6 +36,8 @@ WebSocket URL: ws://localhost:8900/ (computed)
 Keypair Path: /Users/abhi3700/.config/solana/id.json
 Commitment: confirmed
 ```
+
+> You can airdrop as many as you want after running `solana-test-validator` command.
 
 - Ensure local CLI version >= cluster's version
 
@@ -75,7 +83,7 @@ $ solana address
 $ solana-keygen pubkey
 ```
 
-- View account address from a custom wallet (stored other than default dir):
+- View account address from a custom wallet (stored other than default dir): `solana address -k <KEYPAIR-FILE-LOCATION>`
 
 ```
 // M-1
@@ -153,126 +161,109 @@ Key Path: /Users/abhi3700/.config/solana/id.json
 
 - Get the status of transaction via `$ solana `
 
-```
-❯ solana confirm -v 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
-RPC URL: https://api.devnet.solana.com
-Default Signer Path: /Users/abhi3700/.config/solana/id.json
-Commitment: confirmed
+  ```console
+  ❯ solana confirm -v 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
+  RPC URL: https://api.devnet.solana.com
+  Default Signer Path: /Users/abhi3700/.config/solana/id.json
+  Commitment: confirmed
 
-Transaction executed in slot 97784172:
-  Block Time: 2021-11-30T23:34:38+05:30
-  Recent Blockhash: AkJX1WedZNfEpJeyxJBRZTbsyGbnow2LJHExfdV9SinA
-  Signature 0: 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
-  Account 0: srw- 9B5XszUGdMaxCZ7uSQhPzdks5ZQSmWxrmzCSvtJ6Ns6g (fee payer)
-  Account 1: -r-x MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr
-  Instruction 0
-    Program:   MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr (1)
-    Data: "request too large; req: ◎10, cap: ◎5"
-  Status: Ok
-    Fee: ◎0.000005
-    Account 0 balance: ◎155772.641593511 -> ◎155772.641588511
-    Account 1 balance: ◎0.52149888
-  Log Messages:
-    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr invoke [1]
-    Program log: Memo (len 40): "request too large; req: ◎10, cap: ◎5"
-    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr consumed 33081 of 200000 compute units
-    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr success
+  Transaction executed in slot 97784172:
+    Block Time: 2021-11-30T23:34:38+05:30
+    Recent Blockhash: AkJX1WedZNfEpJeyxJBRZTbsyGbnow2LJHExfdV9SinA
+    Signature 0: 5LJvzmbv3fUUHUEGcPedXgkSF4ysjFGZZEPX8RDg3XcvXbxKoAguJoSP3RHzWFFyL647JyTr3Dz5TN7ojiMzcsKe
+    Account 0: srw- 9B5XszUGdMaxCZ7uSQhPzdks5ZQSmWxrmzCSvtJ6Ns6g (fee payer)
+    Account 1: -r-x MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr
+    Instruction 0
+      Program:   MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr (1)
+      Data: "request too large; req: ◎10, cap: ◎5"
+    Status: Ok
+      Fee: ◎0.000005
+      Account 0 balance: ◎155772.641593511 -> ◎155772.641588511
+      Account 1 balance: ◎0.52149888
+    Log Messages:
+      Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr invoke [1]
+      Program log: Memo (len 40): "request too large; req: ◎10, cap: ◎5"
+      Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr consumed 33081 of 200000 compute units
+      Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr success
 
-Finalized
-```
+  Finalized
+  ```
 
 ### Account
 
 - View account details via `$ solana account <enter-address>`
+- Get balance of an account via `$ solana balance <enter-address>` or `solana balance`
+  > No need to parse the default address, otherwise need to.
 - Get details of an account
 
-```
-❯ solana account 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
+  ```console
+  ❯ solana account 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
 
-Public Key: 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
-Balance: 2.69073484 SOL
-Owner: 11111111111111111111111111111111
-Executable: false
-Rent Epoch: 226
-```
+  Public Key: 4aUirUHybwAmuEJPorfeWeWNk4nTgujAkPo2aodNvTv6
+  Balance: 2.69073484 SOL
+  Owner: 11111111111111111111111111111111
+  Executable: false
+  Rent Epoch: 226
+  ```
 
-- Get details of a program id/account
+- Get details of a program account
 
-```
-❯ solana account EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
+  ```console
+  ❯ solana account EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
 
-Public Key: EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
-Balance: 0.00114144 SOL
-Owner: BPFLoaderUpgradeab1e11111111111111111111111
-Executable: true
-Rent Epoch: 226
-Length: 36 (0x24) bytes
-0000:   02 00 00 00  d2 e5 35 b6  f2 c0 64 a5  96 69 5b 4a   ......5...d..i[J
-0010:   64 ef e7 db  d3 c9 d1 3c  be 52 1a b6  28 b5 d1 dc   d......<.R..(...
-0020:   a3 d3 27 06                                          ..'.
-```
+  Public Key: EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
+  Balance: 0.00114144 SOL
+  Owner: BPFLoaderUpgradeab1e11111111111111111111111
+  Executable: true
+  Rent Epoch: 226
+  Length: 36 (0x24) bytes
+  0000:   02 00 00 00  d2 e5 35 b6  f2 c0 64 a5  96 69 5b 4a   ......5...d..i[J
+  0010:   64 ef e7 db  d3 c9 d1 3c  be 52 1a b6  28 b5 d1 dc   d......<.R..(...
+  0020:   a3 d3 27 06                                          ..'.
+  ```
 
-### Transaction
+- Get details of a deployed program
 
-- verify a transaction whether confirmed or not.
-
-```
-❯ solana confirm -v 5Cf22pzPWB2dEb98C8mD9NkYpVeNXdYcHvxK1t5G2xUcQHLDDWce9KRBVv4BY14tBmRsP9XUJkV23iWgsKfRM7BF
-RPC URL: https://api.devnet.solana.com
-Default Signer Path: /Users/abhi3700/.config/solana/id.json
-Commitment: confirmed
-
-Transaction executed in slot 99273235:
-  Block Time: 2021-12-07T16:44:29+05:30
-  Recent Blockhash: GWLJmfiuMsMF8zvVJYizLRa5KeZLzk9Pn5x7VTJtktg
-  Signature 0: 5Cf22pzPWB2dEb98C8mD9NkYpVeNXdYcHvxK1t5G2xUcQHLDDWce9KRBVv4BY14tBmRsP9XUJkV23iWgsKfRM7BF
-  Account 0: srw- 9B5XszUGdMaxCZ7uSQhPzdks5ZQSmWxrmzCSvtJ6Ns6g (fee payer)
-  Account 1: -r-x MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr
-  Instruction 0
-    Program:   MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr (1)
-    Data: "request too large; req: ◎10, cap: ◎5"
-  Status: Ok
-    Fee: ◎0.000005
-    Account 0 balance: ◎426956.700152295 -> ◎426956.700147295
-    Account 1 balance: ◎0.52149888
-  Log Messages:
-    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr invoke [1]
-    Program log: Memo (len 40): "request too large; req: ◎10, cap: ◎5"
-    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr consumed 33081 of 200000 compute units
-    Program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr success
-
-Finalized
+```console
+$ solana program show EGzbH5pZmHhm26PBtEYA57WsLUkGA2vqn8vhsREenfNS
 ```
 
 ### Compile Programs/Contracts
 
-```
+```console
 $ anchor build
+```
+
+For the 1st time, it's going to download BPF lib into the `bin` folder of the installation path of solana like this:
+
+```console
+BPF SDK: /Users/abhi3700/solana-1.13.3/bin/sdk/bpf
+⠙[====================>                   ] 112.00MiB/221.80MiB (21s)
 ```
 
 ### Deploy
 
 - To new program-id
 
-```
-// M-1
-$ anchor deploy --provider.cluster devnet
+  ```console
+  // M-1
+  $ anchor deploy --provider.cluster devnet
 
-// M-2
-$ solana program deploy target/deploy/counter.so
-```
+  // M-2
+  $ solana program deploy target/deploy/counter.so
+  ```
 
 - Upgrade code to a program-id
 
-```
-// M-1
-$ solana program deploy target/deploy/counter.so --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
+  ```console
+  // M-1
+  $ anchor upgrade target/deploy/counter.so --provider.cluster devnet --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
 
-// M-2
-$ anchor upgrade target/deploy/counter.so --provider.cluster devnet --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
-```
+  // M-2
+  $ solana program deploy target/deploy/counter.so --program-id 8KFj2uwBQ3gtDX2xLcnm7SXgyzdyPNutnrZTsqoeDe6t
+  ```
 
-> `$ anchor deploy` for localnet
+- `$ anchor deploy` for localnet
 
 ### Token
 
@@ -286,17 +277,20 @@ $ anchor upgrade target/deploy/counter.so --provider.cluster devnet --program-id
 Successful airdrop
 
 ```
+
 ❯ solana airdrop 5
 Requesting airdrop of 5 SOL
 
 Signature: 5F5uBXZ8W6AQACudCkALgi2bqXAhE6HF9RrrUt1Fe5ieqzJeYjwnjV9xhTXz8tLy5NfSCb3L76Wv9X6wuoNL7pHA
 
 9 SOL
+
 ```
 
 Unsuccessful airdrop
 
 ```
+
 ❯ solana airdrop 6
 Requesting airdrop of 6 SOL
 
@@ -304,23 +298,27 @@ Signature: 5ff5XVoYnyHAvGpfMsDrfdD6VBc8dTewDc7ArSa78GYXQmFaVgag5q7PyVX829LLcaRi5
 
 Balance unchanged
 Run `solana confirm -v 5ff5XVoYnyHAvGpfMsDrfdD6VBc8dTewDc7ArSa78GYXQmFaVgag5q7PyVX829LLcaRi5T8g5PtL6RJc13wW8yE7` for more info
+
 ```
 
 - Airdrop SOL to an address
 
 ```
-❯ solana airdrop 5 FuG41uzhDe25939PQeMcvUHBAfjstnyEDu46bLmpJ7vW                                                                                                                    ⏎
+
+❯ solana airdrop 5 FuG41uzhDe25939PQeMcvUHBAfjstnyEDu46bLmpJ7vW ⏎
 Requesting airdrop of 5 SOL
 
 Signature: 2Lrey9dnX61CLR13aVtyogySWxPqv9uM9qwbwjMZZGsJ51bxCRZh1JJjnBbJ2WqN91NGWDHyTm9YwecY5cWaeKWs
 
 5 SOL
+
 ```
 
 - transfer SOL to a new account. Here, use `--allow-unfunded-recipient` flag for a new account with `0 SOL` as balance.
 
 ```
-❯ solana balance 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG                                                                                                                      ⏎
+
+❯ solana balance 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG ⏎
 0 SOL
 
 ❯ solana transfer -k ~/.config/solana/id.json 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG 10 --allow-unfunded-recipient
@@ -329,15 +327,18 @@ Signature: 4LcZtMdZZrHR2LEwpnfEUksf2PkHyiehGSnbiPj4oMpBUixbG8swv6W18cMSZxRuVy6Mz
 
 ❯ solana balance 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG
 10 SOL
+
 ```
 
 - transfer SOL with fee paid by some other account
 
 ```
+
 // Here, amount deducted from 1st KEYPAIR (file containing the private key) and the 2nd KEYPAIR gives the transaction fee.
-❯ solana transfer -k ~/.config/solana/id.json 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG 10 --fee-payer ./localwallet.json                                                       ⏎
+❯ solana transfer -k ~/.config/solana/id.json 3QhqiUgvejFwhWL4of8EA9McqJdkiRAXDidy5fL72oEG 10 --fee-payer ./localwallet.json ⏎
 
 Signature: 13h2crDKamLYwk1ZhvAPx4cnzxrreBB7xH6DtkdTi7ERSWe3LWdNFh8H3NAQ335BRYG5iKxMo1WCLeAPodEvoww
+
 ```
 
 #### New token
@@ -348,10 +349,12 @@ Signature: 13h2crDKamLYwk1ZhvAPx4cnzxrreBB7xH6DtkdTi7ERSWe3LWdNFh8H3NAQ335BRYG5i
 - Create new token
 
 ```
-❯ spl-token create-token                                                                                                                                                           ⏎
+
+❯ spl-token create-token ⏎
 Creating token GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg
 
 Signature: 4aavRWA8uvYGNqBFQ8whLn6SU5rq9MZGGMXLqsUYKhTMoyF9uL5LeR3y8L2LFdngHoFQVJNnRbTM5RxT4W4h2B6v
+
 ```
 
 Here, the token created has an address: `GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg` with `0` supply.
@@ -359,13 +362,16 @@ Here, the token created has an address: `GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFD
 - View supply of a token
 
 ```
-❯ spl-token supply GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg                                                                                                                    ⏎
+
+❯ spl-token supply GrTH3dLtPoS47rbBcYLvva4GaxuB7yNoLJ1dSFDX7ZEg ⏎
 0
+
 ```
 
 - mint token to an account (token holder)
 
 ```
+
 // create an token holder account
 ❯ spl-token create-account eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D
 Creating account 95KKssRvBW9ZYSXcwUSWHEVZs972L1VZZAUf7YDnWxux
@@ -374,15 +380,17 @@ Signature: 5EjQvFZWtXAckmF7JbeJcGFHxyKJicdKA9zBVGwf611KAjY6yXJCyUSNuJ6G1oXHgPk2A
 
 ❯ spl-token mint eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D 100
 Minting 100 tokens
-  Token: eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D
-  Recipient: 95KKssRvBW9ZYSXcwUSWHEVZs972L1VZZAUf7YDnWxux
+Token: eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D
+Recipient: 95KKssRvBW9ZYSXcwUSWHEVZs972L1VZZAUf7YDnWxux
 
 Signature: 4GpudHGQSfnUSuzdrD8PF2Yir8cg5s1dZpBG6zfV8gXmE3BZRhJkrMNQRCr5d6P8xBK56maRsK8EY4Nn1ah8osKG
+
 ```
 
 - Get info of a token account w/o mint authority
 
 ```
+
 // create token without mint authority
 ❯ spl-token create-account eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D
 Creating account 95KKssRvBW9ZYSXcwUSWHEVZs972L1VZZAUf7YDnWxux
@@ -398,25 +406,27 @@ Owner: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
 Executable: false
 Rent Epoch: 229
 Length: 82 (0x52) bytes
-0000:   01 00 00 00  dd 66 d6 a0  82 8e ee f7  0d b7 00 a8   .....f..........
-0010:   14 4b 89 59  bc a6 9f 30  28 1b 35 b0  b9 49 f4 de   .K.Y...0(.5..I..
-0020:   9d 9e c3 cf  00 e8 76 48  17 00 00 00  09 01 00 00   ......vH........
-0030:   00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   ................
-0040:   00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   ................
-0050:   00 00                                                ..
+0000: 01 00 00 00 dd 66 d6 a0 82 8e ee f7 0d b7 00 a8 .....f..........
+0010: 14 4b 89 59 bc a6 9f 30 28 1b 35 b0 b9 49 f4 de .K.Y...0(.5..I..
+0020: 9d 9e c3 cf 00 e8 76 48 17 00 00 00 09 01 00 00 ......vH........
+0030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0050: 00 00 ..
+
 ```
 
 - Get info of a token account w mint authority
 
 ```
+
 // create token with mint authority
-❯ spl-token create-token --mint-authority ./localwallet.json                                                                                                                       ⏎
+❯ spl-token create-token --mint-authority ./localwallet.json ⏎
 Creating token FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu
 
 Signature: 65DABPbwFLkM9pLq1h4uwBYuUpJRKJxj1BuumJfKvAJ1qL5Nv9UbPAp6bLXfP2gjFdLxYSW2coP9dFK5KdVJfqDL
 
 // get token details
-❯ solana account FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu                                                                                                                      ⏎
+❯ solana account FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu ⏎
 
 Public Key: FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu
 Balance: 0.0014616 SOL
@@ -424,12 +434,13 @@ Owner: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
 Executable: false
 Rent Epoch: 229
 Length: 82 (0x52) bytes
-0000:   01 00 00 00  23 c9 e9 09  87 83 75 49  22 62 b3 77   ....#.....uI"b.w
-0010:   67 79 8a a0  aa 2c ff c8  57 75 08 2d  e4 1b 98 27   gy...,..Wu.-...'
-0020:   95 14 3e 61  00 00 00 00  00 00 00 00  09 01 00 00   ..>a............
-0030:   00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   ................
-0040:   00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   ................
-0050:   00 00                                                ..
+0000: 01 00 00 00 23 c9 e9 09 87 83 75 49 22 62 b3 77 ....#.....uI"b.w
+0010: 67 79 8a a0 aa 2c ff c8 57 75 08 2d e4 1b 98 27 gy...,..Wu.-...'
+0020: 95 14 3e 61 00 00 00 00 00 00 00 00 09 01 00 00 ..>a............
+0030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0050: 00 00 ..
+
 ```
 
 > In both the cases, the token owner is `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA`. The owner is the token program (a program account), which is responsible for creating new tokens, minting tokens, and transferring tokens.
@@ -437,14 +448,22 @@ Length: 82 (0x52) bytes
 - View all tokens (and its balance) that you own
 
 ```
-❯ spl-token accounts                                                                                                                                                               ⏎
-Token                                         Balance
----------------------------------------------------------------
-FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu  0
-eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D   100
+
+❯ spl-token accounts ⏎
+Token Balance
+
+---
+
+FUFdozikSVi9obyZBdZrXiawAYjdxmxKtnCR2dS4Atmu 0
+eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D 100
+
 ```
 
 ### Help
 
 - `$ solana --help`: help for `solana`
 - `$ solana <COMMAND> --help`: help for `solana` command(s)
+
+```
+
+```
