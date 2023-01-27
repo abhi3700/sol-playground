@@ -549,11 +549,3 @@ eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D 100
 
 - `$ solana --help`: help for `solana`
 - `$ solana <COMMAND> --help`: help for `solana` command(s)
-
-```
-
-```
-
-```
-
-```
