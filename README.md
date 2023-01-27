@@ -147,6 +147,12 @@ $ avm install latest
 $ avm use latest
 ```
 
+OR
+
+```sh
+avm update
+```
+
 ---
 
 In case of any issue for **Ubuntu**, do this first:
@@ -295,6 +301,17 @@ Every function usually comes with a struct like this:
 
 ### Mapping
 
+In solidity, if we would have written like this:
+
+```solidity
+struct Todo {
+   string content;
+   bool marked;
+}
+
+mapping(address => Todo[]) public todos;
+```
+
 Unlike solidity, we can't use `mapping` in case of Solana, but rather we use the authority pattern like this:
 
 ```rs
@@ -322,15 +339,31 @@ Imagine a person maintaining TODOs on Solana, the architecture would be like thi
 
 Here, a person would have 1 yellow colored account (todo tracker) & multiple orange colored accounts (todo item) for different TODOs.
 
-In solidity, we would have written like this:
+![](img/solana_account_mapping_2.png)
 
-```solidity
-struct Todo {
-   string content;
-   bool marked;
+Here, in mass, each person would have 1 yellow colored account (todo tracker) & multiple orange colored accounts (todo item) for different TODOs.
+
+### Space & Rent
+
+One can get the struct (`#[account]`) properties size by doing manually via referring [this](./anchor/README.md#space)
+
+```rs
+#[derive(Accounts)]
+pub struct InitializeUser<'info> {
+    #[account(mut)]
+    authority: Signer<'info>,
+
+    #[account(
+        init,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        payer = authority,
+        // 8 (First 8 bytes are default account discriminator) + max_size(UserProfile)
+        space = 8 + std::mem::size_of::<UserProfile>()
+    )]
+    pub user_profile: Box<Account<'info, UserProfile>>,
+    pub system_program: Program<'info, System>, // it's needed
 }
-
-mapping(address => Todo[]) public todos;
 ```
 
 ## SC Security
@@ -496,6 +529,28 @@ There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)
 solana-cli 1.8.0 (src:4a8ff62a; feat:1813598585)
 anchor-cli 0.20.1
 rustc 1.57.0 (f1edd0429 2021-11-29)
+```
+
+### 6. Error: failed to get recent blockhash: FetchError: request to http://localhost:8899/ failed, reason: connect ECONNREFUSED 127.0.0.1:8899
+
+- _Cause_: This happens when the `solana-test-validator` is not running during the `anchor run test`.
+  > This is because of usage of `anchor.setProvider(anchor.AnchorProvider.env());` in the `test.ts` file.
+- _Solution_: Just run the `solana-test-validator` in another terminal & then run the `anchor run test`.
+
+### 7. Error: failed to send transaction: Transaction simulation failed: Attempt to load a program that does not exist
+
+- _Cause_: This happens when the `solana-test-validator` is running & the program is not loaded/deployed.
+- _Solution_: Just run the `anchor deploy` (change `Anchor.toml`, `src/lib.rs`) & then run the `anchor run test`.
+
+### 8. Error: AnchorError occurred. Error Code: DeclaredProgramIdMismatch. Error Number: 4100. Error Message: The declared program id does not match the actual program id.
+
+- _Cause_: This happens when the `program_id` generated into `target/deploy/` is not put into the `declare_id`, `Anchor.toml`.
+- _Solution_: Just copy the `program_id` from `target/deploy/` & put it into the `declare_id`, `Anchor.toml`. & re-deploy after starting the ledger from fresh `solana-test-validator --reset`.
+
+Also, check the available program id:
+
+```console
+anchor keys list
 ```
 
 ## References

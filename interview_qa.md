@@ -4,7 +4,7 @@
 
 - How to implement this Solidity snippet into Solana?
 
-```c
+```solidity
 struct Staking {
   bool status,
   uint256 startTimestamp,

@@ -99,14 +99,17 @@ $ solana address
 $ solana-keygen pubkey
 ```
 
-- View account address from a custom wallet (stored other than default dir): `solana address -k <KEYPAIR-FILE-LOCATION>`
+- View account address from a custom wallet (stored other than default dir): `$ solana address -k <KEYPAIR-FILE-LOCATION>` or `$ anchor keys list`
 
-```console
-// M-1
+```bash
+# M-1: using solana-cli
 $ solana address -k /Users/abhi3700/.config/solana/id2.json
 
-// M-2
+# M-2: using solana-keygen
 $ solana-keygen pubkey /Users/abhi3700/.config/solana/id2.json
+
+# M-3: using anchor-cli
+$ anchor keys list
 ```
 
 - View private key in decoded (base-58) format: Refer this [script](../utils/privkey.py)
@@ -281,6 +284,73 @@ BPF SDK: /Users/abhi3700/solana-1.13.3/bin/sdk/bpf
 
 - `$ anchor deploy` for localnet
 
+### Test
+
+There are 2 methods using which local testing can be done:
+
+**M-1**:
+
+```bash
+# Start the local ledger.
+solana-test-validator
+
+# Then, on a separate terminal session.
+anchor build
+anchor deploy
+anchor run test
+```
+
+or
+
+**M-2**:
+
+```bash
+# a special command that takes care of that full cycle for us
+anchor test
+# creates a `.anchor` folder in the project root
+```
+
+![](../img/anchor-test.png)
+
+---
+
+- Not to confuse with `anchor run test` that only runs the test script inside your `Anchor.toml` file.
+- `anchor test` is really powerful when developing your Solana programs locally. It abstracts away all the faff and lets you focus on your program. It does these:
+
+  1. it starts a local ledger that will be automatically terminated at the end of the command. That means you cannot run `anchor test` if you already have a local ledger running. Make sure to terminate any local ledger before running `anchor test`, this is a common gotcha.
+
+     ```bash
+     solana-test-validator
+     ```
+
+  2. Now, Anchor is ready to build, deploy and run the tests.
+
+     ```bash
+     anchor build
+     anchor deploy
+     anchor run test
+     ```
+
+  > In a project, 1st time, `anchor test` will not work just after `anchor init`, as the program ID needs to be updated.
+  > It is suggested to do build, deploy, test separately for the 1st time, then use `anchor test` for subsequent testing (single command).
+
+---
+
+We can add more scripts in `Anchor.toml` file like this:
+
+```toml
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+my-custom-script = "echo 'Hello world'"
+```
+
+Then, use like this:
+
+```console
+anchor run test
+anchor run my-custom-script
+```
+
 ### Token
 
 > Pre-requisites: The cluster (connected to) must be live & working.
@@ -292,7 +362,7 @@ BPF SDK: /Users/abhi3700/solana-1.13.3/bin/sdk/bpf
 
 Successful airdrop
 
-```
+```console
 
 ❯ solana airdrop 5
 Requesting airdrop of 5 SOL
@@ -479,6 +549,10 @@ eGFhiefGF3wXK79MjWVewfVnDnX9ohXffa3wsAXFi1D 100
 
 - `$ solana --help`: help for `solana`
 - `$ solana <COMMAND> --help`: help for `solana` command(s)
+
+```
+
+```
 
 ```
 
