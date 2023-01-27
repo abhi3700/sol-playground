@@ -19,7 +19,7 @@ $ solana cluster-version
 - Cluster: networks like mainnet, devnet, testnet, localnet.
 - Get config details of the cluster (connected to) via `$ solana config get`
 
-```
+```console
 Config File: /Users/abhi3700/.config/solana/cli/config.yml
 RPC URL: https://api.mainnet-beta.solana.com
 WebSocket URL: wss://api.mainnet-beta.solana.com/ (computed)
@@ -29,7 +29,7 @@ Commitment: confirmed
 
 - Set a URL for a cluster (connected to) via `$ solana config set --url localhost`
 
-```
+```console
 Config File: /Users/abhi3700/.config/solana/cli/config.yml
 RPC URL: http://localhost:8899
 WebSocket URL: ws://localhost:8900/ (computed)
@@ -50,32 +50,48 @@ $ solana cluster-version
 
 - match with the `genesis-hash` of the network by running `$ solana genesis-hash`
 
+---
+
+**Localnet**:
+
+- Run a localnet node with a custom ledger location
+
+```console
+$ solana-test-validator --ledger ~/solana-ledger
+```
+
+- Run a localnet node with resetting the ledger
+
+```console
+$ solana-test-validator --reset
+```
+
 ### Wallet
 
 #### Account
 
 - Generate a new keypair (with a default dir: `~/.config/solana/id.json`)
 
-```
+```console
 // Use -f or --force
 $ solana-keygen new -f
 ```
 
 - Generate a new keypair with a custom location
 
-```
+```console
 $ solana-keygen new -o ~/.config/solana/id2.json
 ```
 
 - Replace a new keypair with a custom location
 
-```
+```console
 $ solana-keygen new -o ~/.config/solana/id2.json -f
 ```
 
 - View your default address. Here, the default path is set as `/Users/abhi3700/.config/solana/id.json`.
 
-```
+```console
 // M-1
 $ solana address
 
@@ -85,7 +101,7 @@ $ solana-keygen pubkey
 
 - View account address from a custom wallet (stored other than default dir): `solana address -k <KEYPAIR-FILE-LOCATION>`
 
-```
+```console
 // M-1
 $ solana address -k /Users/abhi3700/.config/solana/id2.json
 
@@ -95,14 +111,14 @@ $ solana-keygen pubkey /Users/abhi3700/.config/solana/id2.json
 
 - View private key in decoded (base-58) format: Refer this [script](../utils/privkey.py)
 
-```
+```console
 ❯ cat ./solanawallet.json
 [48,231,161,248,233,119,70,246,86,82,71,126,72,190,181,231,195,121,143,71,25,128,161,178,199,187,254,11,146,96,171,3,108,114,29,216,101,19,93,51,118,136,39,169,132,234,242,15,133,109,58,134,180,16,10,78,228,91,33,156,252,70,94,107]
 ```
 
 - Recover a pubkey from secret recovery phrase
 
-```
+```console
 ❯ solana-keygen recover 'prompt://?key=0/0' -o ./solanawallet.json            ⏎
 [recover] seed phrase:
 [recover] If this seed phrase has an associated passphrase, enter it now. Otherwise, press ENTER to continue:
@@ -116,7 +132,7 @@ Wrote recovered keypair to ./solanawallet.json
 
 - Verify a pubkey. To verify you hold the private key for a given address, use this:
 
-```
+```console
 // Success
 ❯ solana-keygen verify 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc ./solanawallet.json
 Verification for public key: 8JKxV9WFUN828KsN2ka7ejHaNfxUMM5hdo7WuMGEtwMc: Success

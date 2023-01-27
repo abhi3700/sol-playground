@@ -527,7 +527,7 @@ rustc 1.57.0 (f1edd0429 2021-11-29)
 
 ### Tutorials
 
-- [Create a Solana dApp from scratch](https://lorisleiva.com/create-a-solana-dapp-from-scratch) [RECOMMENDED]
+- [Create a Solana dApp from scratch](https://lorisleiva.com/create-a-solana-dapp-from-scratch) `best`
   > Using anchor lang/framework
 - [By Figment](https://learn.figment.io/protocols/solana)
 - [Solana Tutorial: Creating PDA's with Anchor](https://www.youtube.com/watch?v=A1TMZxZz9Q8)
