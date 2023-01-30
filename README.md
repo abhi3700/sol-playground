@@ -270,6 +270,11 @@ To detect whether an address is a program, just check the account info (fetched 
 - When we write a program, we should add function/instruction & then corresponding Account (in form of struct) & then test.
 - Add `#[program]` attribute to the mod, which contains all the functions/instruction
 - The prelude contains all commonly used components of the crate. All programs should include it via `anchor_lang::prelude::*;`
+- Get program id from inside the code:
+
+  ```rs
+   msg!("The Program id: {}", crate::ID);
+  ```
 
 ### Function
 
@@ -279,7 +284,20 @@ Every function usually comes with a struct like this:
 
 **L-10:14 & L-18:** shows that.
 
----
+### Event
+
+The `#[event]` attributed event can be defined like this:
+
+```rs
+#[event]
+pub struct Transfer {
+    #[index]
+    pub from: Pubkey,
+    #[index]
+    pub to: Pubkey,
+    pub amount: u128,
+}
+```
 
 ### Error
 
@@ -364,6 +382,39 @@ pub struct InitializeUser<'info> {
     pub user_profile: Box<Account<'info, UserProfile>>,
     pub system_program: Program<'info, System>, // it's needed
 }
+```
+
+### Log
+
+All the logs can be viewed in `.anchor/` folder created during `$ anchor test` command like this:
+
+```sh
+Streaming transaction logs mentioning BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD. Confirmed commitment
+Transaction executed in slot 3:
+  Signature: 66UGGJsbWAfuHhdWgvdHYVg4D6HsdhacEMVEzcAvy14qmb9vxwsGZoAdkrf6ogi2p8XZkAVHNf4jAA1XfuN99Q4w
+  Status: Ok
+  Log Messages:
+    Program BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD invoke [1]
+    Program log: Instruction: Initialize
+    Program 11111111111111111111111111111111 invoke [2]
+    Program 11111111111111111111111111111111 success
+    Program 11111111111111111111111111111111 invoke [2]
+    Program 11111111111111111111111111111111 success
+    Program log: The Program id: BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD
+    Program BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD consumed 21006 of 200000 compute units
+    Program BTc32GfyocV5yZvSqvLvyefkLftyHfG92Sxao2KaLqiD success
+```
+
+for the Solana program instruction defined like this:
+
+```rs
+   pub fn initialize(ctx: Context<Initialize>, new_name: String) -> Result<()> {
+      let my_data = &mut ctx.accounts.data;
+      my_data.name = new_name;
+
+      msg!("The Program id: {}", crate::ID);
+      Ok(())
+   }
 ```
 
 ## SC Security

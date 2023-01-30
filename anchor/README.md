@@ -216,6 +216,8 @@ Amount of space allocated to each type of struct defined in an account.
 
 ![](../img/anchor_solana_account_space.png)
 
+[Source](https://www.anchor-lang.com/docs/space)
+
 ## References
 
 - [List of account constraints](https://docs.rs/anchor-lang/latest/anchor_lang/derive.Accounts.html)

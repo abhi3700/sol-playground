@@ -10,7 +10,8 @@ describe("hello-solana", () => {
 
   it("Is initialized!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    let new_name = "Hello, Solana!";
+    const tx = await program.methods.initialize(new_name).rpc();
     console.log("Your transaction signature", tx);
   });
 });
