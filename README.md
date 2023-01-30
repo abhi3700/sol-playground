@@ -417,6 +417,16 @@ for the Solana program instruction defined like this:
    }
 ```
 
+### Test
+
+- A program's _instruction_ (defined in snake_case) like `send_tweet` is converted into camelCase like `sendTweet` in the test file, like this:
+
+  ```ts
+  it("Send tweet", async () => {
+    await program.rpc.sendTweet();
+  });
+  ```
+
 ## SC Security
 
 - Owner check
@@ -602,6 +612,35 @@ Also, check the available program id:
 
 ```console
 anchor keys list
+```
+
+### 9. Error: Invalid arguments: tweet (account) not provided
+
+- _Cause_: This happens when the `tweet` account is not provided with account constraint in the `src/lib.rs` file.
+- _Solution_: Just add the `tweet` account with account constraint in the `src/lib.rs` file.
+
+Before:
+
+```rs
+#[derive(Accounts)]
+pub struct SendTweet<'info> {
+    pub tweet: Account<'info, Tweet>,
+    pub author: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+```
+
+After:
+
+```rs
+#[derive(Accounts)]
+pub struct SendTweet<'info> {
+    #[account(init, payer = author, space=Tweet::LEN)]
+    pub tweet: Account<'info, Tweet>,
+    #[account(mut)]
+    pub author: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
 ```
 
 ## References
