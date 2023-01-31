@@ -54,6 +54,8 @@ pub struct Staking {
 }
 ```
 
+---
+
 ### Q2
 
 Is there any way to transfer ownership of any smart contract on solana?
@@ -62,6 +64,8 @@ Is there any way to transfer ownership of any smart contract on solana?
 
 Yes - `$ solana program set-upgrade-authority`
 
+---
+
 ### Q3
 
 Can we retrieve the program address from within the program code?
@@ -69,3 +73,13 @@ Can we retrieve the program address from within the program code?
 ### A3
 
 Yes - `crate::ID`
+
+---
+
+### Q4
+
+Can we define the program address as payer for creating PDA?
+
+### A4
+
+No. refer to this troubleshoot [issue](./README.md#10-error-the-payer-specified-does-not-exist)
