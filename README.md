@@ -643,6 +643,34 @@ pub struct SendTweet<'info> {
 }
 ```
 
+### 10. error: the payer specified does not exist.
+
+- _Cause_: This happens when the `payer` account is not provided with account constraint in the `src/lib.rs` file. Basically, the trial was to make the contract as payer.
+
+  ```rs
+  #[derive(Accounts)]
+  pub struct Initialize<'info> {
+      #[account(init, payer = crate::ID, space= 8+4+200)]
+      data: Account<'info, MyData>,
+      // #[account(mut)]
+      author: Signer<'info>,
+      system_program: Program<'info, System>,
+  }
+  ```
+
+- _Solution_: Instead add the `author` (EOA) account with account constraint in the `src/lib.rs` file, but not a program account.
+
+  ```rs
+  #[derive(Accounts)]
+  pub struct Initialize<'info> {
+      #[account(init, payer = author, space= 8+4+200)]
+      data: Account<'info, MyData>,
+      #[account(mut)]
+      author: Signer<'info>,
+      system_program: Program<'info, System>,
+  }
+  ```
+
 ## References
 
 - [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
@@ -700,3 +728,7 @@ pub struct SendTweet<'info> {
 
 - [YT playlist](https://soldev.app/library/playlists)
 - [Solana Tutorial: Creating PDA's with Anchor](https://www.youtube.com/watch?v=A1TMZxZz9Q8)
+
+```
+
+```

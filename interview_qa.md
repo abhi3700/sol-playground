@@ -53,3 +53,19 @@ pub struct Staking {
 	pub maturity_timestamp: u32
 }
 ```
+
+### Q2
+
+Is there any way to transfer ownership of any smart contract on solana?
+
+### A2
+
+Yes - `$ solana program set-upgrade-authority`
+
+### Q3
+
+Can we retrieve the program address from within the program code?
+
+### A3
+
+Yes - `crate::ID`
