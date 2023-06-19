@@ -255,7 +255,62 @@ $ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-con
 
 ## Coding
 
+- **Serializer/Deserializer**: [`Bosch`](https://github.com/near/borsh-rs) (also used in Near blockchain).
+
 ### Program
+
+- In Solana native rust code, we have to parse `program_id` as argument:
+
+  ```rust
+  fn process_instruction(
+      program_id: &Pubkey,
+      accounts: &[AccountInfo],
+      _instruction_data: &[u8]
+  ) -> ProgramResult {
+      let accounts_iter = &mut accounts.iter();
+
+      // The account that signs the transaction and pays for it
+      let payer_account = next_account_info(accounts_iter)?;
+
+      // The account in which we store the counter
+      let counter_account = next_account_info(accounts_iter)?;
+
+      if counter_account.owner != program_id {
+          msg!("Counter account does not have the correct program id");
+          return Err(ProgramError::IncorrectProgramId);
+      }
+
+      let mut counter_data = counter_account.try_borrow_mut_data()?;
+      let mut counter = u32::from_le_bytes([counter_data[0], counter_data[1], counter_data[2], counter_data[3]]);
+      counter += 1;
+      counter_data[0..4].copy_from_slice(&counter.to_le_bytes());
+
+      msg!("Incremented counter to {}", counter);
+
+      Ok(())
+  }
+  ```
+
+  <details>
+  <summary><b>Code explanation:</b></summary>
+
+  In this code, we first get the payer account and then the counter account from the accounts slice. We then check if the counter account has the correct owner, which should be the program id of the current program. If it does not, we return an error.
+
+  Next, we borrow the counter account's data mutably and interpret the first four bytes as a `u32` integer, which is our counter. We increment the counter and then write its new value back to the counter account's data.
+
+  To interact with this program, you would need to create a new account with this program's id as the owner and pass this account to the program as the second account in the accounts slice. You would also need to sign the transaction with the payer account, which is the first account in the accounts slice.
+
+  This is a very basic example and does not include error handling or checks for the payer account. In a real-world scenario, you would want to include checks to ensure that the payer account has enough SOL to pay for the transaction and that the counter account has enough space for the counter.
+
+  </details>
+
+  Here, the `program_id` is parsed to check with the data account owner (index: 1 i.e. `accounts[1]`).
+
+  So, we won't get the address from within the function as the code is not deployed yet when the code was being written.
+
+  > Also there is no way to get the caller's address unlike `msg.sender` in `Solidity` . We have to parse even that address (payer's address) as argument.
+
+  As per the Solana program architecture, the program & data sits at 2 different accounts. Hence, we need to validate the `program_id` with `data_account.owner` so that the function can execute its logic & then we can then store the data (if we want to) into the data account.
 
 - the account variable can only be edited if the account's owner public key matches with the `program_id`
 
@@ -716,6 +771,8 @@ pub struct SendTweet<'info> {
   - [Create a Greeter account](https://learn.figment.io/tutorials/how-to-store-state)
   - [Get Greetings' count](https://learn.figment.io/tutorials/get-greetings)
   - [Send Greetings](https://learn.figment.io/tutorials/send-greetings)
+- [Solana transactions per second: how to with Rust](https://tms-dev-blog.com/solana-transactions-per-second-with-rust/)
+- [Solana wallet with Rust: get started now](https://tms-dev-blog.com/solana-wallet-with-rust-get-started-now/)
 
 ### Security
 
@@ -728,7 +785,3 @@ pub struct SendTweet<'info> {
 
 - [YT playlist](https://soldev.app/library/playlists)
 - [Solana Tutorial: Creating PDA's with Anchor](https://www.youtube.com/watch?v=A1TMZxZz9Q8)
-
-```
-
-```
