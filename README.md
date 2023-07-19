@@ -726,7 +726,7 @@ pub struct SendTweet<'info> {
   }
   ```
 
-## References
+## Resources
 
 - [Solana Wiki, comparison to Ethereum](https://solana.wiki/zh-cn/docs/ethereum-comparison/)
 - [Solana vs Ethereum account](https://solana.wiki/zh-cn/docs/ethereum-comparison/account/)
@@ -773,6 +773,10 @@ pub struct SendTweet<'info> {
   - [Send Greetings](https://learn.figment.io/tutorials/send-greetings)
 - [Solana transactions per second: how to with Rust](https://tms-dev-blog.com/solana-transactions-per-second-with-rust/)
 - [Solana wallet with Rust: get started now](https://tms-dev-blog.com/solana-wallet-with-rust-get-started-now/)
+
+### Courses
+
+- [Github repo](https://github.com/Unboxed-Software/solana-course)
 
 ### Security
 
