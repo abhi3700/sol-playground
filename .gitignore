@@ -5,3 +5,4 @@ test-ledger/
 target/
 .env
 node_modules/
+.$*.drawio.bkp
