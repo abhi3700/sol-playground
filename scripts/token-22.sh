@@ -1,10 +1,15 @@
 decimals=6
 mint_amount=2000000
 amount=2000
-# symbol="RAY"
-# name="RAY"
+name="Donut"
+symbol="DONUT"
+uri="https://donut.com"
 
-echo "Creating token with decimals: $decimals .."
+echo "Creating token with metadata:"
+echo "  • decimals: $decimals"
+echo "  • name: $name"
+echo "  • symbol: $symbol"
+echo "  • uri: $uri"
 
 owner=$(solana address -k ~/.config/solana/id.json)
 echo "\nOwner:         $owner"
@@ -16,7 +21,7 @@ if ! command -v spl-token &> /dev/null; then
 fi
 
 # Owner considered as mint authority
-mint_address=$(spl-token create-token --decimals $decimals | grep 'Creating token' | awk '{print $3}')
+mint_address=$(spl-token --program-id TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb create-token --enable-metadata --decimals $decimals | grep 'Creating token' | awk '{print $3}')
 
 # Check if mint_address was successfully retrieved
 if [ -z "$mint_address" ]; then
@@ -25,6 +30,9 @@ if [ -z "$mint_address" ]; then
 fi
 
 echo "Token Mint:   $mint_address"
+
+# Initialize token metadata
+sig=$(spl-token initialize-metadata $mint_address $name $symbol $uri)
 
 # Create an token account for the mint
 token_account_address=$(spl-token create-account $mint_address | grep 'Creating account' | awk '{print $3}')
